@@ -20,13 +20,9 @@ import java.util.Map;
 @ConfigurationProperties(prefix = DynamicDataSourceProperties.DYNAMIC_DATA_SOURCE_PREFIX)
 public class DynamicDataSourceProperties {
 
-    // private DynamicDataSourceProperties() {
-    // }
-
     public static final String DYNAMIC_DATA_SOURCE_PREFIX = "spring.datasource.dynamic";
     /**
      * 配置所有数据源
      */
     private Map<String, DataSourceProperty> datasource = new LinkedHashMap<>();
-
 }

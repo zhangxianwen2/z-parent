@@ -15,6 +15,7 @@
  */
 package com.seven.bootstarter.dynamicdatasource.properties.stat;
 
+import com.alibaba.druid.support.http.StatViewServlet;
 import com.seven.bootstarter.dynamicdatasource.properties.DruidStatProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -34,6 +35,7 @@ public class DruidStatViewServletConfiguration {
     public ServletRegistrationBean statViewServletRegistrationBean(DruidStatProperties properties) {
         DruidStatProperties.StatViewServlet config = properties.getStatViewServlet();
         ServletRegistrationBean registrationBean = new ServletRegistrationBean();
+        // registrationBean.setServlet();
         registrationBean.addUrlMappings(config.getUrlPattern() != null ? config.getUrlPattern() : "/druid/*");
         if (config.getAllow() != null) {
             registrationBean.addInitParameter("allow", config.getAllow());

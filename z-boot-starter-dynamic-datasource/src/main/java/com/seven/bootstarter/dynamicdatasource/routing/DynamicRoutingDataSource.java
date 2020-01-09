@@ -38,7 +38,7 @@ public class DynamicRoutingDataSource extends AbstractRoutingDataSource implemen
     public void afterPropertiesSet() {
         allDataSource = provider.loadDataSources();
         if (CollectionUtils.isEmpty(allDataSource)) {
-            throw new IllegalArgumentException("don't find any data source config!");
+            throw new IllegalArgumentException("Don't find any data source config!");
         }
         log.info("{} data sources were found", allDataSource.size());
         allDataSource.forEach((key, value) -> {
@@ -60,9 +60,9 @@ public class DynamicRoutingDataSource extends AbstractRoutingDataSource implemen
     private DataSource getDataSource(String dataSourceName) {
         DataSource dataSource = allDataSource.get(dataSourceName);
         if (dataSource == null) {
-            throw new IllegalArgumentException("unknown data source name:" + dataSourceName);
+            throw new IllegalArgumentException("Unknown data source name:" + dataSourceName);
         }
-        log.info("data source:{} is used", dataSourceName);
+        log.info("Data source:{} is used", dataSourceName);
         return dataSource;
     }
 }

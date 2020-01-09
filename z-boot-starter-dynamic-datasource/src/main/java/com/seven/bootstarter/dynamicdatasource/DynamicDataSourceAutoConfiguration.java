@@ -33,7 +33,6 @@ public class DynamicDataSourceAutoConfiguration {
     @Bean
     // @ConditionalOnMissingBean
     public DataSource dynamicRoutingDataSource() {
-        System.out.println("123");
         DynamicRoutingDataSource dynamicRoutingDataSource = new DynamicRoutingDataSource();
         dynamicRoutingDataSource.setProvider(new DefaultDynamicDataSourceProvider(properties));
         return dynamicRoutingDataSource;
