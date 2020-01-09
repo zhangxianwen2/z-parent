@@ -5,8 +5,8 @@ import com.seven.bootstarter.dynamicdatasource.provider.DynamicDataSourceProvide
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
 import java.util.Map;
@@ -51,7 +51,7 @@ public class DynamicRoutingDataSource extends AbstractRoutingDataSource implemen
     @Override
     protected DataSource determineCurrentLookupKey() {
         String dataSourceName = DynamicDataSourceContextHolder.getDataSourceName();
-        if (dataSourceName == null) {
+        if (StringUtils.isEmpty(dataSourceName)) {
             return defaultDataSource;
         }
         return getDataSource(dataSourceName);
@@ -60,9 +60,9 @@ public class DynamicRoutingDataSource extends AbstractRoutingDataSource implemen
     private DataSource getDataSource(String dataSourceName) {
         DataSource dataSource = allDataSource.get(dataSourceName);
         if (dataSource == null) {
-            throw new IllegalArgumentException("Unknown data source name:" + dataSourceName);
+            throw new IllegalArgumentException("DataSource name cant't be null!");
         }
-        log.info("Data source:{} is used", dataSourceName);
+        log.info("DataSource:{} is used!", dataSourceName);
         return dataSource;
     }
 }

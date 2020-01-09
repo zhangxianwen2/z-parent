@@ -18,6 +18,7 @@
     <modules>
         <module>z-boot-starter-dynamic-datasource</module>
         <module>z-spring-cloud-platform</module>
+        <module>z-spring-cloud-api-starter</module>
     </modules>
 
     <properties>

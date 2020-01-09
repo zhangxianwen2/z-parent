@@ -22,7 +22,7 @@ public class DynamicDataSourceContextHolder {
      */
     public static void setDataSourceKey(String dataSourcesName) {
         LOOKUP_KEY_HOLDER.set(dataSourcesName);
-        log.info("datasource {} is push to deque;", dataSourcesName);
+        log.info("Datasource {} set into thread!", dataSourcesName);
     }
 
     /**
@@ -31,7 +31,6 @@ public class DynamicDataSourceContextHolder {
      * @return 数据源名称
      */
     public static String getDataSourceName() {
-        // 获取但是不删除队列中的第一个元素
         return LOOKUP_KEY_HOLDER.get();
     }
 
@@ -40,6 +39,6 @@ public class DynamicDataSourceContextHolder {
      */
     public static void clearDataSource() {
         LOOKUP_KEY_HOLDER.remove();
-        log.info("datasource pool is cleared");
+        log.info("Datasource pool is cleared!");
     }
 }

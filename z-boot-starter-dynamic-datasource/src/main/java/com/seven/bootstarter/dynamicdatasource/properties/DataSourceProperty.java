@@ -2,7 +2,6 @@ package com.seven.bootstarter.dynamicdatasource.properties;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 /**
  * <p>

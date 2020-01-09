@@ -24,14 +24,14 @@ import java.lang.reflect.Method;
 public class DynamicDataSourceAspect {
 
     @Before("@annotation(switchDataSource)")
-    public void switchDataSource(JoinPoint point,SwitchDataSource switchDataSource) {
+    public void switchDataSource(JoinPoint point, SwitchDataSource switchDataSource) {
         Method method = ((MethodSignature) point.getSignature()).getMethod();
         final SwitchDataSource annotation = method.getAnnotation(SwitchDataSource.class);
         final String value = annotation.value();
         if (!StringUtils.isEmpty(value)) {
             DynamicDataSourceContextHolder.setDataSourceKey(value);
         } else {
-            log.warn("data source is blank,it will not take effect");
+            log.warn("DataSource is blank,it will not take effect");
         }
     }
 }
