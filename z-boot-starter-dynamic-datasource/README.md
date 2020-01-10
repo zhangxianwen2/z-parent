@@ -67,7 +67,7 @@
    |	|	|-- mapper
    |	|	|	|__UserMapper.java
    |	|--seven2
-   |	|  |--dataobject
+   |	|	|--dataobject
    |	|	|	|__Product.java
    |	|	|-- mapper
    |	|	|	|__ProductMapper.java
