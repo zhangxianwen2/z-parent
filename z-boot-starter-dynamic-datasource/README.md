@@ -64,12 +64,12 @@
    |	|--seven1
    |	|	|--dataobject
    |	|	|	|__User.java
-   |	|	|-- mapper
+   |	|	|--mapper
    |	|	|	|__UserMapper.java
    |	|--seven2
    |	|	|--dataobject
    |	|	|	|__Product.java
-   |	|	|-- mapper
+   |	|	|--mapper
    |	|	|	|__ProductMapper.java
    ```
 
