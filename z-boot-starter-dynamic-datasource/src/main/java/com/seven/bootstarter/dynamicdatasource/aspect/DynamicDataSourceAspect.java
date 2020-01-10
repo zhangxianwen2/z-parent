@@ -28,21 +28,19 @@ public class DynamicDataSourceAspect {
         // 数据源注解在方法
         Method method = ((MethodSignature) point.getSignature()).getMethod();
         SwitchDataSource annotation = method.getAnnotation(SwitchDataSource.class);
-
         // 数据源注解在类
         if (annotation == null) {
             annotation = point.getTarget().getClass().getAnnotation(SwitchDataSource.class);
             if (annotation == null) {
-                log.warn("注解式数据源未生效，数据源将被mybatis动态数据源决定！");
+                log.warn("DataSource annotation is invalid，mybatis interceptor will decide it!");
                 return;
             }
         }
-
         final String value = annotation.value();
         if (!StringUtils.isEmpty(value)) {
             DynamicDataSourceContextHolder.setDataSourceKey(value);
         } else {
-            log.warn("DataSource is blank,it will not take effect");
+            log.warn("DataSource annotation value is blank，mybatis interceptor will decide it!");
         }
     }
 }
