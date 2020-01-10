@@ -47,7 +47,6 @@ public class DynamicDataSourceAutoConfiguration {
         return dynamicRoutingDataSource;
     }
 
-
     @Bean
     public DynamicDataSourceInterceptor dynamicDataSourceInterceptor() {
         return new DynamicDataSourceInterceptor();

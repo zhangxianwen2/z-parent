@@ -5,7 +5,7 @@ import com.seven.bootstarter.dynamicdatasource.properties.DataSourceProperty;
 import com.seven.bootstarter.dynamicdatasource.properties.DynamicDataSourceProperties;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -29,7 +29,8 @@ public class DefaultDynamicDataSourceProvider implements DynamicDataSourceProvid
     @Override
     public Map<String, DataSource> loadDataSources() {
         Map<String, DataSourceProperty> dataSourcePropertiesMap = properties.getDatasource();
-        Map<String, DataSource> dataSourceMap = new HashMap<>(dataSourcePropertiesMap.size());
+        // LinkedHashMap保证数据源在Map中的顺序与配置文件一致
+        Map<String, DataSource> dataSourceMap = new LinkedHashMap<>(dataSourcePropertiesMap.size());
         for (Map.Entry<String, DataSourceProperty> entry : dataSourcePropertiesMap.entrySet()) {
             String dataSourceName = entry.getKey();
             DataSourceProperty dataSourceProperty = entry.getValue();
@@ -39,7 +40,13 @@ public class DefaultDynamicDataSourceProvider implements DynamicDataSourceProvid
         return dataSourceMap;
     }
 
-    private DataSource createDataSource(DataSourceProperty dataSourceProperty) {
+    /**
+     * 创建DruidDataSource为druid监控提供数据基础
+     *
+     * @param dataSourceProperty 数据源连接属性
+     * @return DruidDataSource
+     */
+    private DruidDataSource createDataSource(DataSourceProperty dataSourceProperty) {
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setUsername(dataSourceProperty.getUsername());
         dataSource.setPassword(dataSourceProperty.getPassword());

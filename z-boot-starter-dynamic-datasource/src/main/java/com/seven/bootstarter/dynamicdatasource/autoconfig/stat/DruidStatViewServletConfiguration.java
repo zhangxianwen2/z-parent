@@ -1,4 +1,4 @@
-package com.seven.bootstarter.dynamicdatasource.properties.stat;
+package com.seven.bootstarter.dynamicdatasource.autoconfig.stat;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.seven.bootstarter.dynamicdatasource.properties.DruidStatProperties;

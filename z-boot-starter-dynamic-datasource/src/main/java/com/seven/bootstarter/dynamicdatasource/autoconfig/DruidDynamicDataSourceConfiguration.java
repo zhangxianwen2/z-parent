@@ -1,10 +1,10 @@
 package com.seven.bootstarter.dynamicdatasource.autoconfig;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.seven.bootstarter.dynamicdatasource.autoconfig.stat.DruidSpringAopConfiguration;
+import com.seven.bootstarter.dynamicdatasource.autoconfig.stat.DruidStatViewServletConfiguration;
+import com.seven.bootstarter.dynamicdatasource.autoconfig.stat.DruidWebStatFilterConfiguration;
 import com.seven.bootstarter.dynamicdatasource.properties.DruidStatProperties;
-import com.seven.bootstarter.dynamicdatasource.properties.stat.DruidSpringAopConfiguration;
-import com.seven.bootstarter.dynamicdatasource.properties.stat.DruidStatViewServletConfiguration;
-import com.seven.bootstarter.dynamicdatasource.properties.stat.DruidWebStatFilterConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

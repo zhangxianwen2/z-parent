@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.seven.bootstarter.dynamicdatasource.properties.stat;
+package com.seven.bootstarter.dynamicdatasource.autoconfig.stat;
 
 import com.alibaba.druid.support.http.WebStatFilter;
 import com.seven.bootstarter.dynamicdatasource.properties.DruidStatProperties;

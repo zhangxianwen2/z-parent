@@ -22,11 +22,11 @@ import java.util.Map;
 @Slf4j
 public class DynamicRoutingDataSource extends AbstractRoutingDataSource implements InitializingBean {
     /**
-     * 所有数据源
+     * 所有数据源集合
      */
     private Map<String, DataSource> allDataSource;
     /**
-     * 默认数据源
+     * 默认数据源，最好的猜测为配置文件的第一个数据源配置，当不指定数据源且mybatis拦截器失效时被使用
      */
     private DataSource defaultDataSource;
 
