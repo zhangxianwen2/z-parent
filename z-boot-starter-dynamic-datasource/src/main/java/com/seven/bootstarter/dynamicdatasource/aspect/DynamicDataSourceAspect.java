@@ -23,10 +23,21 @@ import java.lang.reflect.Method;
 @Aspect
 public class DynamicDataSourceAspect {
 
-    @Before("@annotation(switchDataSource)")
+    @Before("@within(switchDataSource)||@annotation(switchDataSource)")
     public void switchDataSource(JoinPoint point, SwitchDataSource switchDataSource) {
+        // 数据源注解在方法
         Method method = ((MethodSignature) point.getSignature()).getMethod();
-        final SwitchDataSource annotation = method.getAnnotation(SwitchDataSource.class);
+        SwitchDataSource annotation = method.getAnnotation(SwitchDataSource.class);
+
+        // 数据源注解在类
+        if (annotation == null) {
+            annotation = point.getTarget().getClass().getAnnotation(SwitchDataSource.class);
+            if (annotation == null) {
+                log.warn("注解式数据源未生效，数据源将被mybatis动态数据源决定！");
+                return;
+            }
+        }
+
         final String value = annotation.value();
         if (!StringUtils.isEmpty(value)) {
             DynamicDataSourceContextHolder.setDataSourceKey(value);
