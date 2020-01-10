@@ -60,17 +60,17 @@
 3. 创建自己的数据库Mapper等文件，我使用的是[MybatisPlus](https://mp.baomidou.com/ )代码生成器，需要注意的是，无论你采用何种方式生成数据库实例代码，如果想要实现在不手动指定数据源的情况下能够正确获取到对应的数据源，请务必按照以下文件结构创建：
 
    ```
-   |—— com.seven.dynamic.datasource.dal
-   |	|-- seven1
-   |	|	|-- dataobject
-   |	|	|	|__ User.java
+   |--com.seven.dynamic.datasource.dal
+   |	|--seven1
+   |	|	|--dataobject
+   |	|	|	|__User.java
    |	|	|-- mapper
-   |	|	|	|__ UserMapper.java
-   |	|-- seven2
-   |	|	|-- dataobject
-   |	|	|	|__ Product.java
+   |	|	|	|__UserMapper.java
+   |	|--seven2
+   |	|  |--dataobject
+   |	|	|	|__Product.java
    |	|	|-- mapper
-   |	|	|	|__ ProductMapper.java
+   |	|	|	|__ProductMapper.java
    ```
 
    其中`seven1`和`seven2`表示不同数据源的`datasourceName`，目录接口为倒数第三级。对应的猜测代码于`DynamicDataSourceInterceptor.jave`中，如下：
