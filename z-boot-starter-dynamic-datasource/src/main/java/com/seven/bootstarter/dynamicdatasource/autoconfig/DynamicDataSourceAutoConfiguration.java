@@ -1,6 +1,7 @@
 package com.seven.bootstarter.dynamicdatasource.autoconfig;
 
 
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
 import com.seven.bootstarter.dynamicdatasource.aspect.DynamicDataSourceAspect;
 import com.seven.bootstarter.dynamicdatasource.interceptor.DynamicDataSourceInterceptor;
 import com.seven.bootstarter.dynamicdatasource.properties.DynamicDataSourceProperties;
@@ -27,7 +28,7 @@ import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy;
  * 2020/01/08 20:27
  **/
 @Configuration
-@AutoConfigureBefore({DataSourceAutoConfiguration.class})
+@AutoConfigureBefore({DataSourceAutoConfiguration.class, DruidDataSourceAutoConfigure.class})
 @EnableConfigurationProperties(DynamicDataSourceProperties.class)
 @Import({DruidDynamicDataSourceConfiguration.class, DynamicDataSourceAspect.class})
 public class DynamicDataSourceAutoConfiguration {
