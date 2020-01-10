@@ -29,19 +29,17 @@ public abstract class AbstractRoutingDataSource extends AbstractDataSource {
         return determineCurrentLookupKey().getConnection(username, password);
     }
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T> T unwrap(Class<T> iface) throws SQLException {
+        if (iface.isInstance(this)) {
+            return (T) this;
+        }
+        return determineCurrentLookupKey().unwrap(iface);
+    }
 
-    //
-    // @Override
-    // @SuppressWarnings("unchecked")
-    // public <T> T unwrap(Class<T> iface) throws SQLException {
-    //     if (iface.isInstance(this)) {
-    //         return (T) this;
-    //     }
-    //     return determineCurrentLookupKey().unwrap(iface);
-    // }
-    //
-    // @Override
-    // public boolean isWrapperFor(Class<?> iface) throws SQLException {
-    //     return (iface.isInstance(this) || determineCurrentLookupKey().isWrapperFor(iface));
-    // }
+    @Override
+    public boolean isWrapperFor(Class<?> iface) throws SQLException {
+        return (iface.isInstance(this) || determineCurrentLookupKey().isWrapperFor(iface));
+    }
 }
