@@ -1,4 +1,4 @@
-package com.seven.bootstart.logger.controller;
+package com.seven.bootstart.logger.model;
 
 import lombok.Data;
 
