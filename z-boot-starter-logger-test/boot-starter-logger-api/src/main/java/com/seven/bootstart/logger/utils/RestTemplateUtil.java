@@ -1,8 +1,14 @@
 package com.seven.bootstart.logger.utils;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+
+import java.net.URI;
 
 /**
  * @author zhangxianwen
@@ -13,7 +19,10 @@ public class RestTemplateUtil {
     @Autowired
     private RestTemplate restTemplate;
 
-    public void post() {
-        // restTemplate.postForEntity("");
+    public void post(String url, String body) {
+        URI uri = URI.create(url);
+        HttpEntity<String> httpEntity = new HttpEntity<String>(body, null);
+        ResponseEntity<String> exchange = restTemplate.exchange(uri, HttpMethod.POST, httpEntity, String.class);
+        System.out.println(true);
     }
 }
