@@ -15,7 +15,7 @@ import java.io.IOException;
  **/
 public class MDCFilter implements Filter {
 
-    public final static String HEADER_KEY_TRANCE_ID = "tranceId";
+    public final static String HEADER_KEY_TRACE_ID = "traceId";
     public final static String HEADER_KEY_SERIES_IP = "tranceSeriesIp";
 
     public final static String HEADER_KEY_HOST_NAME = "tranceHostName";
@@ -51,12 +51,12 @@ public class MDCFilter implements Filter {
         MDC.put(MDCFilter.HEADER_KEY_EXTRA_SIGN, tranceExtraSign);
 
         //
-        String traceId = requestWrapper.getHeader(MDCFilter.HEADER_KEY_TRANCE_ID);
+        String traceId = requestWrapper.getHeader(MDCFilter.HEADER_KEY_TRACE_ID);
         if (StringUtils.isEmpty(traceId)) {
             traceId = UUIDUtil.getShortUUID();
         }
-        MDC.put(MDCFilter.HEADER_KEY_TRANCE_ID, traceId);
-        requestWrapper.putCustomHeaders(MDCFilter.HEADER_KEY_TRANCE_ID, traceId);
+        MDC.put(MDCFilter.HEADER_KEY_TRACE_ID, traceId);
+        requestWrapper.putCustomHeaders(MDCFilter.HEADER_KEY_TRACE_ID, traceId);
 
         String seriesIp = requestWrapper.getHeader(MDCFilter.HEADER_KEY_SERIES_IP);
         if (!StringUtils.isEmpty(seriesIp)) {

@@ -1,7 +1,7 @@
 <configuration>
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
     <property name="pattern"
-              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] [%X{traceId}] %-5level %logger{35} - %msg %n"/>
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] [%X{traceId}] [%X{tranceSeriesIp}] %-5level %logger{35} - %msg %n"/>
 
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>

@@ -22,7 +22,7 @@ import java.util.List;
 public class LoggerAutoconfig {
     private final static List<String> NEED_TRACE_HEADERS = new ArrayList<String>() {
         {
-            add(MDCFilter.HEADER_KEY_TRANCE_ID);
+            add(MDCFilter.HEADER_KEY_TRACE_ID);
             add(MDCFilter.HEADER_KEY_SERIES_IP);
         }
     };
