@@ -30,8 +30,8 @@ import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy;
 @Configuration
 @AutoConfigureBefore({DataSourceAutoConfiguration.class, DruidDataSourceAutoConfigure.class})
 @EnableConfigurationProperties(DynamicDataSourceProperties.class)
-@Import({DruidDynamicDataSourceConfiguration.class, DynamicDataSourceAspect.class})
-public class DynamicDataSourceAutoConfiguration {
+@Import({DruidDynamicDataSourceAutoconfig.class, DynamicDataSourceAspect.class})
+public class DynamicDataSourceAutoconfig {
 
     @Bean
     @Primary

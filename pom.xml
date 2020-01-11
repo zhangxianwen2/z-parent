@@ -17,8 +17,8 @@
 
     <modules>
         <module>z-boot-starter-dynamic-datasource</module>
-        <module>z-spring-cloud-platform</module>
         <module>z-spring-cloud-api-starter</module>
+        <module>z-boot-starter-logger</module>
     </modules>
 
     <properties>
@@ -35,6 +35,13 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud-version}</version>
+            </dependency>
+
+            <!-- Spring -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>5.1.9.RELEASE</version>
             </dependency>
 
             <!-- Swagger -->

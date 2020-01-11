@@ -25,5 +25,5 @@ import org.springframework.context.annotation.Import;
         DruidStatViewServletConfiguration.class,
         DruidSpringAopConfiguration.class,
         DruidWebStatFilterConfiguration.class})
-public class DruidDynamicDataSourceConfiguration {
+public class DruidDynamicDataSourceAutoconfig {
 }
