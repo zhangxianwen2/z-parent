@@ -12,7 +12,7 @@
     </appender>
 
     <!-- 引入自定义日志配置 -->
-<!--    <include file="src/main/resources/logback-custom-spring.xml"/>-->
+    <!--    <include file="src/main/resources/logback-custom-spring.xml"/>-->
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">

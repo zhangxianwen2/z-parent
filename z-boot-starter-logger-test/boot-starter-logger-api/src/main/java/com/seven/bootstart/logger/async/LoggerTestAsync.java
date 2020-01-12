@@ -19,7 +19,7 @@ public class LoggerTestAsync {
         try {
             a.trim();
         } catch (Exception e) {
-            log.warn("异常捕捉：",e);
+            log.warn("异常捕捉：", e);
         }
     }
 }
