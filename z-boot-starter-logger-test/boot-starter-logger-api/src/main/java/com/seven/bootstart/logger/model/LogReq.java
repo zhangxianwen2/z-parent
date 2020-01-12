@@ -10,4 +10,7 @@ import lombok.Data;
 public class LogReq {
     private String url;
     private String content;
+    private String password;
+    private String idNo;
+    private String bankNo;
 }

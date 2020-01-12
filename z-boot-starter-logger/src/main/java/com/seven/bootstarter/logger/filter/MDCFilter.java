@@ -38,14 +38,14 @@ public class MDCFilter implements Filter {
 
         String tranceHostAddress = ApplicationProvider.getHostAddress();
         MDC.put(MDCFilter.HEADER_KEY_HOST_ADDRESS, tranceHostAddress);
-        requestWrapper.putCustomHeaders(MDCFilter.HEADER_KEY_SERIES_IP, tranceHostAddress);
+        requestWrapper.putCustomHeaders(MDCFilter.HEADER_KEY_HOST_ADDRESS, tranceHostAddress);
 
         String tranceAppId = ApplicationProvider.getAppId();
         MDC.put(MDCFilter.HEADER_KEY_APP_ID, tranceAppId);
 
         String tranceAppName = ApplicationProvider.getAppName();
         MDC.put(MDCFilter.HEADER_KEY_APP_NAME, tranceAppName);
-        requestWrapper.putCustomHeaders(MDCFilter.HEADER_KEY_SERIES_IP, tranceAppName);
+        requestWrapper.putCustomHeaders(MDCFilter.HEADER_KEY_APP_NAME, tranceAppName);
 
         String tranceExtraSign = ApplicationProvider.getExtraSign();
         MDC.put(MDCFilter.HEADER_KEY_EXTRA_SIGN, tranceExtraSign);
@@ -61,6 +61,8 @@ public class MDCFilter implements Filter {
         String seriesIp = requestWrapper.getHeader(MDCFilter.HEADER_KEY_SERIES_IP);
         if (!StringUtils.isEmpty(seriesIp)) {
             seriesIp = seriesIp + "->" + tranceHostAddress + "(" + tranceAppName + ")";
+        } else {
+            seriesIp = tranceHostAddress + "(" + tranceAppName + ")";
         }
         MDC.put(MDCFilter.HEADER_KEY_SERIES_IP, seriesIp);
         requestWrapper.putCustomHeaders(MDCFilter.HEADER_KEY_SERIES_IP, seriesIp);

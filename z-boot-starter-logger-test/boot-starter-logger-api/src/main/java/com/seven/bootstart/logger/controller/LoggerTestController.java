@@ -28,8 +28,9 @@ public class LoggerTestController {
     @ApiOperation(value = "HTTP请求链路日志测试")
     @PostMapping("/restTemplatePost")
     public void postTest(@RequestBody LogReq logReq) {
-        log.info("请求体：{}", JSON.toJSONString(logReq));
-        restTemplateUtil.post("http://192.168.1.5:8001/logger/post", JSON.toJSONString(logReq));
+        log.info("{}", JSON.toJSONString(logReq));
+        log.info("sdlkfhjlksdajflkdjsnfaiksfhjlisdjf");
+        // restTemplateUtil.post("http://192.168.1.5:8001/logger/post", JSON.toJSONString(logReq));
     }
 
 }

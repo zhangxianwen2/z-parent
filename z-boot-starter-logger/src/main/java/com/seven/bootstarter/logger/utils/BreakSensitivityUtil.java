@@ -4,7 +4,6 @@ package com.seven.bootstarter.logger.utils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.seven.bootstarter.logger.provider.SensitivityFieldProvider;
-import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,36 +18,19 @@ public class BreakSensitivityUtil {
     public static String breakSensitivity(String str) {
         // 1. 字符属于Json格式
         if (isJsonObject(JSON.toJSONString(str))) {
-            return transformJSONObject(str);
+            String s = transformJSONObject(str);
+            return unescapeJson(s);
         }
         // 2. 字符属于对象格式
 // TODO: 2020/1/11
-        return null;
+        return str;
     }
 
 
     public static void main(String[] args) {
-        String str = "\n" +
-                "{\n" +
-                "    \"idNo\":\"522724199608250010\",\n" +
-                "    \"mobile\":\"18785062704\",\n" +
-                "    \"bankNo\":\"62122624025012101\",\n" +
-                "    \"password\":\"zxw0825.\",\n" +
-                "    \"phone\":{\n" +
-                "        \"idNo\":\"522724199608250010\",\n" +
-                "    \t\"mobile\":\"18785062704\",\n" +
-                "    \t\"bankNo\":\"62122624025012101\",\n" +
-                "    \t\"password\":\"zxw0825.\",\n" +
-                "        \"qwe\":\"qwe\"\n" +
-                "    }\n" +
-                "}\n" +
-                "\n" +
-                "\n" +
-                "\n";
+        String str = "{\"reason\":\"成功 \",\"result\":{\"jobid\":\"JH2131171027170837443588J6\",\"realname\":\"李哪娜\",\"bankcard\":\"6226430106137525\",\"idcard\":\"130333198901192762\",\"mobile\":\"13210141605\",\"password\":{'A':'a','B':'b'},\"message\":\"验证成功\"},\"error_code\":0}";
         System.out.println(str);
         System.out.println(transformJSONObject(str));
-
-        System.out.println(isMobile("18785062704"));
     }
 
     private static String transformJSONObject(String string) {
@@ -76,11 +58,12 @@ public class BreakSensitivityUtil {
             }
             result.put(key, value);
         });
-        return unescapeJson(JSON.toJSONString(result));
+        return JSON.toJSONString(result);
     }
 
     private static boolean isJsonObject(String str) {
         try {
+            str = unescapeJson((str));
             JSONObject jsonObject = JSONObject.parseObject(str);
             return true;
         } catch (Exception e) {

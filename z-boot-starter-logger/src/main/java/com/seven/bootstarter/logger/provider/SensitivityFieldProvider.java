@@ -32,14 +32,24 @@ public class SensitivityFieldProvider {
         add("bankCard".toLowerCase());
     }};
 
-    @Value("${z.boot.starter.logger.mobile-regex:^[1][3589]\\d{9}}")
+    public SensitivityFieldProvider(@Value("${z.boot.starter.logger.mobile-regex:^[1][3589]\\d{9}}") String mobileRegex,
+                                    @Value("${z.boot.starter.logger.idCard-regex:(^\\d{15}$)|(^\\d{18}$)|(^\\d{17}(\\d|X|x)$)}") String idCardRegex,
+                                    @Value("${z.boot.starter.logger.bankCard-regex:^[34569]\\d{15,18}}") String bankCardRegex,
+                                    @Value("${z.boot.starter.logger.max-length:2048}") String maxLoggerLength
+    ) {
+        SensitivityFieldProvider.mobileRegex = mobileRegex;
+        SensitivityFieldProvider.idCardRegex = idCardRegex;
+        SensitivityFieldProvider.bankCardRegex = bankCardRegex;
+        SensitivityFieldProvider.maxLoggerLength = maxLoggerLength;
+    }
+
     private static String mobileRegex;
 
-    @Value("${z.boot.starter.logger.idCard-regex:(^\\d{15}$)|(^\\d{18}$)|(^\\d{17}(\\d|X|x)$)}")
     private static String idCardRegex;
 
-    @Value("${z.boot.starter.logger.bankCard-regex:^[34569]\\d{15,18}}")
     private static String bankCardRegex;
+
+    private static String maxLoggerLength;
 
     public static List<String> getPasswordFieldList() {
         return PASSWORD_FIELD_LIST;
@@ -67,5 +77,9 @@ public class SensitivityFieldProvider {
 
     public static String getBankCardRegex() {
         return bankCardRegex;
+    }
+
+    public static String getMaxLoggerLength() {
+        return maxLoggerLength;
     }
 }
