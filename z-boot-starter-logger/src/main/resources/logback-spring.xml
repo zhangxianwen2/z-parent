@@ -1,5 +1,7 @@
 <configuration>
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
+    <springProperty scope="context" name="appName" source="z.logger.application.name"
+                    defaultValue="undefinedAppName"/>
     <property name="pattern"
               value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] [%X{traceId}] [%X{tranceSeriesIp}] %-5level %logger{35} - %msg %n"/>
 
@@ -9,22 +11,25 @@
         </encoder>
     </appender>
 
+    <!-- 引入自定义日志配置 -->
+<!--    <include file="src/main/resources/logback-custom-spring.xml"/>-->
+
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
             <layout class="com.seven.bootstarter.logger.layout.ConsoleLayOut">
                 <!--                <prefix>MyPrefix</prefix>-->
-                <showThreadName>false</showThreadName>
-                <showSeriesIp>false</showSeriesIp>
+                <!--                <showThreadName>false</showThreadName>-->
+                <!--                <showSeriesIp>false</showSeriesIp>-->
             </layout>
         </encoder>
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>mylog.txt</file>
+        <file>logs/${appName}.log</file>
         <layout class="com.seven.bootstarter.logger.layout.FileLayOut"/>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!--按天轮转 -->
-            <fileNamePattern>mylog-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>logs/${appName}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxFileSize>100MB</maxFileSize>
             <maxHistory>60</maxHistory>
             <totalSizeCap>1GB</totalSizeCap>
