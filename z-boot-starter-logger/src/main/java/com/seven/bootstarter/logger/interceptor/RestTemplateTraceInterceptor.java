@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * intercept方法的重写，将会在restTemple请求的请求头中增加需要链路的键值
+ *
  * @author zhangxianwen
  * 2020/1/11 15:25
  **/

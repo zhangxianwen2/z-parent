@@ -1,4 +1,4 @@
-package com.seven.api.starter.config;
+package com.seven.api.starter.config.swagger;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

@@ -1,4 +1,4 @@
-package com.seven.api.starter.config;
+package com.seven.api.starter.config.swagger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

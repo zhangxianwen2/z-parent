@@ -9,7 +9,7 @@ import com.seven.bootstarter.logger.filter.MDCFilter;
  * 2020/1/12 10:41
  **/
 public class ConsoleLayOut extends AbstractLayout {
-    private final static String TAB = "\t";
+    private final static String TAB = " ";
     private Boolean showThreadName = true;
     private Boolean showSeriesIp = true;
 
