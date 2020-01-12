@@ -55,9 +55,11 @@ public class LoggerTestController {
             log.info("自定义线程池日志");
         });
         //
-        loggerTestAsync.print();
-        loggerTestAsync.print();
-        loggerTestAsync.print();
+        try {
+            loggerTestAsync.print();
+        } catch (Exception e) {
+            log.warn("捕捉到异常，异常信息", e);
+        }
     }
 
 }

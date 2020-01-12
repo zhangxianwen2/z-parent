@@ -13,14 +13,27 @@
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
             <layout class="com.seven.bootstarter.logger.layout.ConsoleLayOut">
                 <!--                <prefix>MyPrefix</prefix>-->
-                <!--                <showThreadName>false</showThreadName>-->
-                <!--                <showSeriesIp>false</showSeriesIp>-->
+                <showThreadName>false</showThreadName>
+                <showSeriesIp>false</showSeriesIp>
             </layout>
         </encoder>
     </appender>
 
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>mylog.txt</file>
+        <layout class="com.seven.bootstarter.logger.layout.FileLayOut"/>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--按天轮转 -->
+            <fileNamePattern>mylog-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>60</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
         <!--        <appender-ref ref="console"/>-->
     </root>
 </configuration>

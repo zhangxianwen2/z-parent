@@ -15,5 +15,11 @@ public class LoggerTestAsync {
 
     public void print() {
         log.info("@Async子线程日志");
+        String a = null;
+        try {
+            a.trim();
+        } catch (Exception e) {
+            log.warn("异常捕捉：",e);
+        }
     }
 }

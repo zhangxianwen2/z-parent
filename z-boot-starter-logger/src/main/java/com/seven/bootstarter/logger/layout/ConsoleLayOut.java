@@ -27,6 +27,7 @@ public class ConsoleLayOut extends AbstractLayout {
         writeMDC(json, iLoggingEvent);
         writeBasic(json, iLoggingEvent);
         writeThrowable(json, iLoggingEvent);
+        //
         StringBuilder out = new StringBuilder();
         out.append(json.get("time"));
         out.append(TAB);
@@ -53,6 +54,25 @@ public class ConsoleLayOut extends AbstractLayout {
         out.append("-");
         out.append(TAB);
         out.append(json.get("message"));
+        if (json.get("throwable") != null) {
+            out.append("\n");
+            out.append(json.getJSONObject("throwable").get("className"));
+        }
+        if (json.get("stackTrace") != null) {
+            for (Object stackTrace : json.getJSONArray("stackTrace")) {
+                out.append("\n");
+                out.append("\tat ");
+                out.append(((JSONObject) stackTrace).get("class"));
+                out.append(".");
+                out.append(((JSONObject) stackTrace).get("method"));
+                out.append("(");
+                out.append(((JSONObject) stackTrace).get("file"));
+                out.append(":");
+                out.append(((JSONObject) stackTrace).get("line"));
+                out.append(")");
+            }
+
+        }
         out.append("\n");
         return out.toString();
     }
