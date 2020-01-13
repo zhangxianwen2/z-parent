@@ -21,7 +21,7 @@ import java.util.List;
 @Configuration
 @Import({ApplicationProvider.class, SensitivityFieldProvider.class})
 public class LoggerAutoconfig {
-    private final static List<String> NEED_TRACE_HEADERS = new ArrayList<String>() {
+    private static final List<String> NEED_TRACE_HEADERS = new ArrayList<String>() {
         {
             add(MDCFilter.HEADER_KEY_TRACE_ID);
             add(MDCFilter.HEADER_KEY_SERIES_IP);

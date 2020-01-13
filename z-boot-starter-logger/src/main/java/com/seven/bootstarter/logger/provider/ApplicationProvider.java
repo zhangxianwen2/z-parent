@@ -38,7 +38,6 @@ public class ApplicationProvider {
      */
     private static String extraSign;
 
-    private Properties appProperties = new Properties();
 
     public ApplicationProvider(@Value("${z.logger.application.name:UNDEFINED}") String applicationName,
                                @Value("${z.logger.application.id:UNDEFINED}") String appId,
@@ -48,6 +47,7 @@ public class ApplicationProvider {
             ApplicationProvider.hostAddress = inetAddress.getHostAddress();
             ApplicationProvider.hostName = inetAddress.getHostName();
         } catch (UnknownHostException e) {
+            log.warn("There is a UnknownHostException be found,fields hostAddress and hostName will be null!");
             // do nothing
         }
         ApplicationProvider.appName = applicationName;

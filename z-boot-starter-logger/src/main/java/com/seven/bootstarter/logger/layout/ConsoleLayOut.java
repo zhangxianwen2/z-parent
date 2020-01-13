@@ -9,7 +9,7 @@ import com.seven.bootstarter.logger.filter.MDCFilter;
  * 2020/1/12 10:41
  **/
 public class ConsoleLayOut extends AbstractLayout {
-    private final static String TAB = " ";
+    private static final String TAB = " ";
     private Boolean showThreadName = true;
     private Boolean showSeriesIp = true;
 
@@ -46,6 +46,12 @@ public class ConsoleLayOut extends AbstractLayout {
         if (showSeriesIp && json.get(MDCFilter.HEADER_KEY_SERIES_IP) != null) {
             out.append("[");
             out.append(json.get(MDCFilter.HEADER_KEY_SERIES_IP));
+            out.append("]");
+            out.append(TAB);
+        }
+        if (json.get(MDCFilter.HEADER_KEY_EXTRA_SIGN) != null) {
+            out.append("[");
+            out.append(json.get(MDCFilter.HEADER_KEY_EXTRA_SIGN));
             out.append("]");
             out.append(TAB);
         }

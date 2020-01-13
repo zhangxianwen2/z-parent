@@ -15,15 +15,15 @@ import java.io.IOException;
  **/
 public class MDCFilter implements Filter {
 
-    public final static String HEADER_KEY_TRACE_ID = "traceId";
-    public final static String HEADER_KEY_SERIES_IP = "tranceSeriesIp";
+    public static final String HEADER_KEY_TRACE_ID = "traceId";
+    public static final String HEADER_KEY_SERIES_IP = "tranceSeriesIp";
 
-    public final static String HEADER_KEY_HOST_NAME = "tranceHostName";
-    public final static String HEADER_KEY_HOST_ADDRESS = "tranceHostAddress";
+    public static final String HEADER_KEY_HOST_NAME = "tranceHostName";
+    public static final String HEADER_KEY_HOST_ADDRESS = "tranceHostAddress";
 
-    public final static String HEADER_KEY_APP_ID = "tranceAppId";
-    public final static String HEADER_KEY_APP_NAME = "tranceAppName";
-    public final static String HEADER_KEY_EXTRA_SIGN = "tranceExtraSign";
+    public static final String HEADER_KEY_APP_ID = "tranceAppId";
+    public static final String HEADER_KEY_APP_NAME = "tranceAppName";
+    public static final String HEADER_KEY_EXTRA_SIGN = "tranceExtraSign";
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
