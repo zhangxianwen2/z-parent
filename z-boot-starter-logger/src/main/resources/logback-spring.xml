@@ -2,18 +2,33 @@
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
     <springProperty scope="context" name="appName" source="z.logger.application.name"
                     defaultValue="undefinedAppName"/>
-    <property name="pattern"
-              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] [%X{traceId}] [%X{tranceSeriesIp}] %-5level %logger{35} - %msg %n"/>
 
-    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>${pattern}</pattern>
-        </encoder>
-    </appender>
+    <!-- rabbitmq -->
+    <springProperty scope="context" name="elkRabbitMqEnable"
+                    source="elk.rabbitmq.enable" defaultValue="false"/>
+    <springProperty scope="context" name="elkRabbitMqHost"
+                    source="elk.rabbitmq.host" defaultValue="localhost"/>
+    <springProperty scope="context" name="elkRabbitMqPort"
+                    source="elk.rabbitmq.port" defaultValue="5672"/>
+    <springProperty scope="context" name="elkRabbitMqUsername"
+                    source="elk.rabbitmq.username" defaultValue="guest"/>
+    <springProperty scope="context" name="elkRabbitMqPassword"
+                    source="elk.rabbitmq.password" defaultValue="guest"/>
+    <springProperty scope="context" name="elkRabbitMqVirtualHost"
+                    source="elk.rabbitmq.virtual-host" defaultValue="/"/>
+    <springProperty scope="context" name="elkRabbitMqExchange"
+                    source="elk.rabbitmq.exchange" defaultValue="topic.loggingExchange"/>
+    <springProperty scope="context" name="elkRabbitMqRoutingKey"
+                    source="elk.rabbitmq.routing-key" defaultValue="logback.#"/>
+    <springProperty scope="context" name="elkRabbitMqApplicationId"
+                    source="elk.rabbitmq.application-id" defaultValue="undefined"/>
+    <springProperty scope="context" name="elkRabbitMqConnectionName"
+                    source="elk.rabbitmq.connection-name" defaultValue="undefined"/>
 
     <!-- 引入自定义日志配置 -->
     <!--    <include file="src/main/resources/logback-custom-spring.xml"/>-->
 
+    <!-- 日志打印到控制台 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
             <layout class="com.seven.bootstarter.logger.layout.ConsoleLayOut">
@@ -24,21 +39,62 @@
         </encoder>
     </appender>
 
+    <!-- 日志发送到RabbitMq -->
+    <if condition='property("elkRabbitMqEnable").contains("true")'>
+        <then>
+            <appender name="ELK_RABBIT_MQ" class="org.springframework.amqp.rabbit.logback.AmqpAppender">
+                <layout class="com.seven.bootstarter.logger.layout.RabbitMQLayOut"/>
+                <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                    <level>INFO</level>
+                </filter>
+                <host>${elkRabbitMqHost}</host>
+                <port>${elkRabbitMqPort}</port>
+                <username>${elkRabbitMqUsername}</username>
+                <password>${elkRabbitMqPassword}</password>
+                <applicationId>${elkRabbitMqApplicationId}</applicationId>
+                <virtualHost>${elkRabbitMqVirtualHost}</virtualHost>
+                <exchangeName>${elkRabbitMqExchange}</exchangeName>
+                <exchangeType>topic</exchangeType>
+                <declareExchange>true</declareExchange>
+                <routingKeyPattern>${elkRabbitMqRoutingKey}</routingKeyPattern>
+                <autoDelete>false</autoDelete>
+                <generateId>true</generateId>
+                <durable>true</durable>
+                <deliveryMode>PERSISTENT</deliveryMode>
+                <charset>UTF-8</charset>
+                <contentType>text/json</contentType>
+                <connectionName>${elkRabbitMqConnectionName}</connectionName>
+            </appender>
+        </then>
+    </if>
+
+    <!-- 日志打印到文件 -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/${appName}.log</file>
+        <file>logs/${appName}/${appName}.log</file>
         <layout class="com.seven.bootstarter.logger.layout.FileLayOut"/>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!--按天轮转 -->
-            <fileNamePattern>logs/${appName}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>logs/${appName}/${appName}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxFileSize>100MB</maxFileSize>
             <maxHistory>60</maxHistory>
             <totalSizeCap>1GB</totalSizeCap>
         </rollingPolicy>
     </appender>
 
+
+    <!-- 打印控制 -->
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
-        <!--        <appender-ref ref="console"/>-->
+        <if condition='property("sentryEnable").contains("true")'>
+            <then>
+                <appender-ref ref="Sentry"/>
+            </then>
+        </if>
+        <if condition='property("elkRabbitMqEnable").contains("true")'>
+            <then>
+                <appender-ref ref="ELK_RABBIT_MQ"/>
+            </then>
+        </if>
     </root>
 </configuration>
