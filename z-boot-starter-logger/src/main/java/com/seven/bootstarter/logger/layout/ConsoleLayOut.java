@@ -3,6 +3,7 @@ package com.seven.bootstarter.logger.layout;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import com.alibaba.fastjson.JSONObject;
 import com.seven.bootstarter.logger.filter.MDCFilter;
+import org.springframework.util.StringUtils;
 
 /**
  * @author zhangxianwen
@@ -37,22 +38,23 @@ public class ConsoleLayOut extends AbstractLayout {
         }
         out.append(json.get("level"));
         out.append(TAB);
-        if (json.get(MDCFilter.HEADER_KEY_TRACE_ID) != null) {
+        if (!StringUtils.isEmpty(json.get(MDCFilter.HEADER_KEY_TRACE_ID))) {
             out.append("[");
             out.append(json.get(MDCFilter.HEADER_KEY_TRACE_ID));
             out.append("]");
             out.append(TAB);
         }
-        if (showSeriesIp && json.get(MDCFilter.HEADER_KEY_SERIES_IP) != null) {
+        if (showSeriesIp && !StringUtils.isEmpty(MDCFilter.HEADER_KEY_SERIES_IP)) {
             out.append("[");
             out.append(json.get(MDCFilter.HEADER_KEY_SERIES_IP));
             out.append("]");
             out.append(TAB);
         }
-        if (json.get(MDCFilter.HEADER_KEY_EXTRA_SIGN) != null) {
+        if (!StringUtils.isEmpty(json.get(MDCFilter.HEADER_KEY_EXTRA_SIGN))) {
             out.append("[");
             out.append(json.get(MDCFilter.HEADER_KEY_EXTRA_SIGN));
             out.append("]");
+
             out.append(TAB);
         }
         out.append(json.get("logger"));

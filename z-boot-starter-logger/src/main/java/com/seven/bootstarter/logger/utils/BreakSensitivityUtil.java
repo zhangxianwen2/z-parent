@@ -2,6 +2,7 @@ package com.seven.bootstarter.logger.utils;
 
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.seven.bootstarter.logger.provider.SensitivityFieldProvider;
 
@@ -16,14 +17,17 @@ import java.util.regex.Pattern;
 public class BreakSensitivityUtil {
 
     public static String breakSensitivity(String str) {
-        // 1. 字符属于Json格式
-        if (isJsonObject(JSON.toJSONString(str))) {
-            String s = transformJSONObject(str);
-            return unescapeJson(s);
+        // 1. 处理中间的回车空格等字符
+        if (isJsonArray(str)) {
+            str = transformJSONArray(str);
         }
-        // 2. 字符属于对象格式
+        // 2. 字符属于Json格式
+        else if (isJsonObject(JSON.toJSONString(str))) {
+            str = transformJSONObject(str);
+        }
+        // 3. 字符属于对象格式
 // TODO: 2020/1/11
-        return str;
+        return unescapeJson(str);
     }
 
 
@@ -33,17 +37,34 @@ public class BreakSensitivityUtil {
         System.out.println(transformJSONObject(str));
     }
 
+    private static String transformJSONArray(String str) {
+        str = unescapeJson((str));
+        JSONArray jsonArray = JSON.parseArray(str);
+        JSONArray arr = new JSONArray();
+        for (Object o : jsonArray) {
+            arr.add(transformJSONObject(JSON.toJSONString(o)));
+        }
+        return JSON.toJSONString(arr);
+    }
+
     private static String transformJSONObject(String string) {
         string = unescapeJson(string);
         if (!isJsonObject(string)) {
             return string;
         }
-        JSONObject jsonObject = JSONObject.parseObject(string);
+        JSONObject jsonObject = JSON.parseObject(string);
         JSONObject result = new JSONObject();
         jsonObject.forEach((key, value) -> {
             String str = JSON.toJSONString(value);
             if (isJsonObject(str)) {
                 value = transformJSONObject(str);
+            } else if (isJsonArray(str)) {
+                JSONArray jsonArray = JSON.parseArray(str);
+                JSONArray arr = new JSONArray();
+                for (Object o : jsonArray) {
+                    arr.add(transformJSONObject(JSON.toJSONString(o)));
+                }
+                value = JSON.toJSONString(arr);
             } else {
                 str = String.valueOf(value);
                 if (SensitivityFieldProvider.getBankCardFieldList().contains(key.toLowerCase())) {
@@ -64,7 +85,17 @@ public class BreakSensitivityUtil {
     private static boolean isJsonObject(String str) {
         try {
             str = unescapeJson((str));
-            JSONObject jsonObject = JSONObject.parseObject(str);
+            JSON.parseObject(str);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static boolean isJsonArray(String str) {
+        try {
+            str = unescapeJson((str));
+            JSON.parseArray(str);
             return true;
         } catch (Exception e) {
             return false;
@@ -179,8 +210,20 @@ public class BreakSensitivityUtil {
         while (str.contains("\\\"")) {
             str = str.replace("\\\"", "\"");
         }
-        str = str.replace("\"{", "{");
-        str = str.replace("}\"", "}");
+        while (str.contains("\"{")) {
+            str = str.replace("\"{", "{");
+
+        }
+        while (str.contains("}\"")) {
+            str = str.replace("}\"", "}");
+        }
+        while (str.contains("\"[")) {
+            str = str.replace("\"[", "[");
+
+        }
+        while (str.contains("]\"")) {
+            str = str.replace("]\"", "]");
+        }
         return str;
     }
 
