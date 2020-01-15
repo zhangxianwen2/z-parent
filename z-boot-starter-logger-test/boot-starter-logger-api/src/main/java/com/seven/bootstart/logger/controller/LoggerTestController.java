@@ -34,7 +34,7 @@ public class LoggerTestController {
     @PostMapping("/restTemplatePost")
     public void postTest(@RequestBody String logReq) {
         log.info("{}", JSON.toJSONString(logReq));
-        log.info("{\"idNo\": \"522724199808081101\",\"contacts\": [{\"addr\": \"string\",\"kind\": 0,\"mobile\": \"18785062704\",\"name\": \"string\"}]}");
+        // log.info("{\"idNo\": \"522724199808081101\",\"contacts\": [{\"addr\": \"string\",\"kind\": 0,\"mobile\": \"18785062704\",\"name\": \"string\"}]}");
         // restTemplateUtil.post("http://192.168.1.5:8001/logger/post", JSON.toJSONString(logReq));
     }
 

@@ -44,7 +44,7 @@ public class ConsoleLayOut extends AbstractLayout {
             out.append("]");
             out.append(TAB);
         }
-        if (showSeriesIp && !StringUtils.isEmpty(MDCFilter.HEADER_KEY_SERIES_IP)) {
+        if (showSeriesIp && !StringUtils.isEmpty(json.get(MDCFilter.HEADER_KEY_SERIES_IP))) {
             out.append("[");
             out.append(json.get(MDCFilter.HEADER_KEY_SERIES_IP));
             out.append("]");
