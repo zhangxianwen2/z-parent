@@ -1,4 +1,4 @@
-package com.seven.bootstarter.logger.utils;
+package com.seven.bootstarter.common.utils;
 
 import java.util.UUID;
 

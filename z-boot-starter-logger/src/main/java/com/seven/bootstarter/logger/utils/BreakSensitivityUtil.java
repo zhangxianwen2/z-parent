@@ -88,8 +88,7 @@ public class BreakSensitivityUtil {
         str = unescapeJson((str));
         JSONArray jsonArray = JSON.parseArray(str);
         JSONArray arr = new JSONArray();
-        for (Object o : jsonArray) {
-            arr.add(transformJSONObject(JSON.toJSONString(o)));
+        for (Object o : jsonArray) {            arr.add(transformJSONObject(JSON.toJSONString(o)));
         }
         return JSON.toJSONString(arr);
     }

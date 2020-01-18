@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.7.RELEASE</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.seven</groupId>
+    <artifactId>${artifactId}-parent</artifactId>
+    <version>${version}</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <model-version>${version}</model-version>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>Aliyun</id>
+            <name>Nexus Aliyun</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+        </repository>
+    </repositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${groupId}</groupId>
+                <artifactId>${artifactId}-api</artifactId>
+                <version>${model-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${groupId}</groupId>
+                <artifactId>${artifactId}-service</artifactId>
+                <version>${model-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${groupId}</groupId>
+                <artifactId>${artifactId}-core</artifactId>
+                <version>${model-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${groupId}</groupId>
+                <artifactId>${artifactId}-common</artifactId>
+                <version>${model-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${groupId}</groupId>
+                <artifactId>${artifactId}-dal</artifactId>
+                <version>${model-version}</version>
+            </dependency>
+            <dependency>
+            <groupId>${groupId}</groupId>
+            <artifactId>${artifactId}-facade</artifactId>
+            <version>${model-version}</version>
+        </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

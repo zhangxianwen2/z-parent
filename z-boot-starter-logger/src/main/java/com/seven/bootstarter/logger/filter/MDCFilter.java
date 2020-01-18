@@ -1,11 +1,15 @@
 package com.seven.bootstarter.logger.filter;
 
+import com.seven.bootstarter.common.utils.UUIDUtil;
 import com.seven.bootstarter.logger.provider.ApplicationProvider;
-import com.seven.bootstarter.logger.utils.UUIDUtil;
 import org.slf4j.MDC;
 import org.springframework.util.StringUtils;
 
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
