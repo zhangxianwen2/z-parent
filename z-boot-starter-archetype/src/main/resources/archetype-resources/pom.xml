@@ -9,55 +9,57 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.seven</groupId>
+    <groupId>${groupId}</groupId>
     <artifactId>${artifactId}-parent</artifactId>
     <version>${version}</version>
     <packaging>pom</packaging>
+    <name>${artifactId}-parent</name>
+
+    <modules>
+        <module>${rootArtifactId}-api</module>
+        <module>${rootArtifactId}-common</module>
+        <module>${rootArtifactId}-core</module>
+        <module>${rootArtifactId}-dal</module>
+        <module>${rootArtifactId}-facade</module>
+        <module>${rootArtifactId}-service</module>
+    </modules>
 
     <properties>
-        <model-version>${version}</model-version>
+        <parent-project.version>1.0-SNAPSHOT</parent-project.version>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>Aliyun</id>
-            <name>Nexus Aliyun</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
-        </repository>
-    </repositories>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>${groupId}</groupId>
-                <artifactId>${artifactId}-api</artifactId>
-                <version>${model-version}</version>
+                <artifactId>${rootArtifactId}-api</artifactId>
+                <version>${parent-project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${groupId}</groupId>
-                <artifactId>${artifactId}-service</artifactId>
-                <version>${model-version}</version>
+                <artifactId>${rootArtifactId}-service</artifactId>
+                <version>${parent-project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${groupId}</groupId>
-                <artifactId>${artifactId}-core</artifactId>
-                <version>${model-version}</version>
+                <artifactId>${rootArtifactId}-core</artifactId>
+                <version>${parent-project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${groupId}</groupId>
-                <artifactId>${artifactId}-common</artifactId>
-                <version>${model-version}</version>
+                <artifactId>${rootArtifactId}-common</artifactId>
+                <version>${parent-project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${groupId}</groupId>
-                <artifactId>${artifactId}-dal</artifactId>
-                <version>${model-version}</version>
+                <artifactId>${rootArtifactId}-dal</artifactId>
+                <version>${parent-project.version}</version>
             </dependency>
             <dependency>
-            <groupId>${groupId}</groupId>
-            <artifactId>${artifactId}-facade</artifactId>
-            <version>${model-version}</version>
-        </dependency>
+                <groupId>${groupId}</groupId>
+                <artifactId>${rootArtifactId}-facade</artifactId>
+                <version>${parent-project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

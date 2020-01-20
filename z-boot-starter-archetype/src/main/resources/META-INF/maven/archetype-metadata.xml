@@ -5,22 +5,18 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         name="z-boot-starter-archetype">
     <requiredProperties>
-        <requiredProperty key="gitignore">
-            <defaultValue>.gitignore</defaultValue>
-            <validationRegex/>
+        <requiredProperty key="groupId">
+            <defaultValue>com.seven</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="artifactId">
+            <defaultValue>seven-archetype</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="package">
+            <defaultValue>com.seven.boot.archetype</defaultValue>
         </requiredProperty>
     </requiredProperties>
-
-    <fileSets>
-        <fileSet>
-            <directory/>
-            <includes>__gitignore__</includes>
-            <excludes/>
-        </fileSet>
-    </fileSets>
-
     <modules>
-        <module id="${rootArtifactId}-api" dir="__rootArtifactId__-api" name="${rootArtifactId}-api">
+        <module id="${rootArtifactId}-api" dir="__rootArtifactId__-api">
             <fileSets>
                 <fileSet filtered="true" encoding="UTF-8">
                     <directory>src/main/java</directory>
@@ -37,8 +33,7 @@
                 </fileSet>
             </fileSets>
         </module>
-        <module id="${rootArtifactId}-service" dir="__rootArtifactId__-service"
-                name="${rootArtifactId}-service">
+        <module id="${rootArtifactId}-service" dir="__rootArtifactId__-service">
             <fileSets>
                 <fileSet filtered="true" packaged="true" encoding="UTF-8">
                     <directory>src/main/java</directory>
@@ -48,7 +43,7 @@
                 </fileSet>
             </fileSets>
         </module>
-        <module id="${rootArtifactId}-common" dir="__rootArtifactId__-common" name="${rootArtifactId}-common">
+        <module id="${rootArtifactId}-common" dir="__rootArtifactId__-common" >
             <fileSets>
                 <fileSet filtered="true" packaged="true" encoding="UTF-8">
                     <directory>src/main/java</directory>
@@ -58,7 +53,7 @@
                 </fileSet>
             </fileSets>
         </module>
-        <module id="${rootArtifactId}-core" dir="__rootArtifactId__-core" name="${rootArtifactId}-core">
+        <module id="${rootArtifactId}-core" dir="__rootArtifactId__-core" >
             <fileSets>
                 <fileSet filtered="true" packaged="true" encoding="UTF-8">
                     <directory>src/main/java</directory>
@@ -68,7 +63,7 @@
                 </fileSet>
             </fileSets>
         </module>
-        <module id="${rootArtifactId}-facade" dir="__rootArtifactId__-facade" name="${rootArtifactId}-facade">
+        <module id="${rootArtifactId}-facade" dir="__rootArtifactId__-facade">
             <fileSets>
                 <fileSet filtered="true" packaged="true" encoding="UTF-8">
                     <directory>src/main/java</directory>
@@ -78,8 +73,7 @@
                 </fileSet>
             </fileSets>
         </module>
-        <module id="${rootArtifactId}-dal" dir="__rootArtifactId__-dal"
-                name="${rootArtifactId}-dal">
+        <module id="${rootArtifactId}-dal" dir="__rootArtifactId__-dal">
             <fileSets>
                 <fileSet filtered="true" packaged="true" encoding="UTF-8">
                     <directory>src/main/java</directory>
