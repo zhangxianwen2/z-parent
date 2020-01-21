@@ -36,9 +36,8 @@
     |-- |-- |-- |-- src
     |-- |-- |-- |-- |-- main
     |-- |-- |-- |-- |-- |-- java
-    |-- |-- |-- |-- |-- |-- |-- __packageInPathFormat__ //占位符
-    |-- |-- |-- |-- |-- |-- |-- |-- __artifactId__ //占位符
-    |-- |-- |-- |-- |-- |-- |-- |-- |-- controller
+    |-- |-- |-- |-- |-- |-- |-- api
+    |-- |-- |-- |-- |-- |-- |-- |-- controller
     |-- |-- |-- |-- pom.xml //模块pom
     |-- |-- |-- __rootArtifactId__-common //占位符-common模块
     |-- |-- |-- |-- pom.xml //模块pom
@@ -46,7 +45,7 @@
     |-- |-- |-- |-- pom.xml //模块pom
     |-- |-- |-- __rootArtifactId__-business //占位符-business模块
     |-- |-- |-- |-- pom.xml //模块pom
-    |-- |-- |-- __rootArtifactId__-dal //dal模块
+    |-- |-- |-- __rootArtifactId__-dal //占位符-dal模块
     |-- |-- |-- |-- pom.xml //模块pom
     |-- |-- |-- pom.xml //*请理解成父pom
     |-- |-- META-INF //*固定包名 注意书写
@@ -55,12 +54,13 @@
     
     
     占位符解释：
+    以下占位符你都可以在创建项目结构时使用
     __rootArtifactId__	将被生成项目时定义的ArtifactId占位，固定写法
-    __packageInPathFormat__	将被生成项目时定义的GroupId占位，固定写法
-    __artifactId__	将被生成项目时定义的ArtifactId占位(通常项目中ArtifactId被-隔开，实际开发中建议此处不要使用占位符，而是和我一样一层层手动创建包名)，固定写法(同__rootArtifactId__)
+    __packageInPathFormat__	(不推荐)将被生成项目时定义的GroupId占位(通常情况下，我们应当在archetype-metadata.xml中定义package变量，而不使用此占位符)，固定写法
+    __artifactId__	(不推荐)将被archetype-metadata.xml文件中对应model标签下的id属性代替(通常该属性书写方式被-隔开，因此实际开发中建议此处不要使用占位符，而是和我一样一层层手动创建包名)，固定写法
     ```
 
-    ​	以上结构中打了*的便是脚手架核心框架的必须内容，其他内容按需增减即可
+    ​	以上结构中打了*****的便是脚手架核心框架的必须内容，其他内容按需增减即可
 
  3. 以上便是所有maven官网介绍的脚手架必须的框架了，咱们还是看一下官网的介绍
 
@@ -90,7 +90,7 @@
     <modules>
         <module id="${rootArtifactId}-api" dir="__rootArtifactId__-api">
             <fileSets>
-                <fileSet filtered="true" encoding="UTF-8">
+                <fileSet filtered="true" packaged="true" encoding="UTF-8">
                     <directory>src/main/java</directory>
                     <includes>
                         <include>**/*.java</include>
@@ -122,10 +122,11 @@
 	archetype-descriptor标签中的name字段为最终生成的盒子pom标签中的description属性，建议与盒子的ArtifactId保持一致
 	module标签中的id字段如：${rootArtifactId}-api拼接结果将作为api模块pom中的${artifactId}占位符内容
 	module标签中的dir字段如：__rootArtifactId__-api拼接结果将用于寻找脚手架中的模块名，若无对应的模块名，生成的模板项目将不正常
+	fileSet标签下的packaged属性，会在生成的项目中自动创建变量package表示的包名结构，默认与创建项目时定义的groupId相同，但是我更加建议自己定义此变量。当packaged=true时，将在directory属性值后拼接上package变量定义的包结构，因此一般情况下，package值在java源程序包中使用，resources不使用
 	其他标签字段没有什么特殊含义，不做特殊解释
 ```
 
-​	本文件中同时还可以进行变量定义，如默认值的定义，当我们在使用mvn命令使用脚手架时，可跳过输入一些信息而使用默认值，配置参考：
+​	本文件中同时还可以进行变量定义，如默认值的定义，当我们在使用mvn命令使用脚手架时，可跳过输入一些信息而使用默认值，使用方式如：`${groupId}`配置参考：
 
 ```
     <requiredProperties>
@@ -141,7 +142,7 @@
     </requiredProperties>
 ```
 
-​	如果你需要在脚手架中加入.ignore文件以让所有项目的ignore范围一致，请直接使用`<fileSets>`标签即可，配置方法略。
+​	如果你需要在脚手架中加入.ignore文件以让所有项目的ignore范围一致，请直接使用`<fileSets>`标签即可，配置方法略。更多姿势请到[ArchetypeDescriptor](http://maven.apache.org/archetype/archetype-models/archetype-descriptor/archetype-descriptor.html)进行解锁
 
 ### 核心内容
 
@@ -149,7 +150,7 @@
 
 ​	但是，实际制作脚手架的过程中，我们往往需要脚手架中有我们想要的包以及一些固定的类、工具等信息。接下来将以`__rootArtifactId__-api`模块为示例针对脚手架的核心内容的创建进行说明。
 
-​	这里我建议你配合着源码了解，我不会再这里贴上大篇幅代码内容，我会告诉你我正在解释哪个文件，你需要打开源码并打开我说的文件跟着理解。
+​	此处我建议你配合着源码了解，我不会在这里贴上大篇幅代码内容，我会告诉你我正在解释哪个文件，你**需要打开源码并打开我描述的文件**并跟着理解。
 
 I 文件：`archetype-resources\pom.xml`
 
@@ -165,22 +166,20 @@ I 文件：`archetype-resources\pom.xml`
 
 II 文件：`__rootArtifactId__-api\pom.xml`
 
-这里边有重点，请仔细阅读并尝试理解
-
-本pom将作为所有子模块的通用讲解，将不再对其他模块细讲。
+这里边有**重点**，请仔细阅读并尝试理解，本pom将作为所有子模块的通用讲解，将不再对其他模块细讲。
 
 ```
 1. 关于<parent>标签有必要进行解释，<parent>标签中的<artifactId>请指定为${rootArtifactId}-parent，此处不能使用${artifactId}代替${rootArtifactId}。
-	这里不得不提${rootArtifactId}与${artifactId}的区别，在父pom中，由于没有模块的概念，所以这两个占位符表示的都是同一个值，也就是创建项目时输入的artifaceId值，因此在archetype-resources\pom.xml中这两个占位符你可以相互替换。但是在子模块中，${artifactId}表示的是archetype-metadata.xml文件中每一个model表现下的id属性(也就意味着每个子模块中的相同${artifactId}占位符代表的是不同的值)，但是${rootArtifactId}从始至终表示创建项目时输入的artifaceId值。
+	这里不得不提${rootArtifactId}与${artifactId}的区别，在父pom中，由于没有模块的概念，所以这两个占位符表示的都是同一个值，也就是创建项目时输入的artifaceId值，因此在archetype-resources\pom.xml中这两个占位符你可以相互替换。但是在子模块中，${artifactId}表示的是archetype-metadata.xml文件中每一个model标签下的id属性(也就意味着每个子模块中的相同${artifactId}占位符代表的是不同的值)，但是${rootArtifactId}从始至终表示创建项目时输入的artifaceId值。
 2. 其他的用法就没有特殊说明的
 ```
 
-III 文件`${package}.archetype.apiApiApplication.java`
+III 文件`${package}.ApiApplication.java`
 
 本类将作为启动类，也会对一些特殊的地方进行说明，我相信理解这个类的用法后，其他类、包、文件的创建方式将不在话下
 
 ```
-1. ${package} 本占位符将被创建项目时的groupId代替。你也可以理解成最初讲项目框架时，java包下的__packageInPathFormat__内容。同样__packageInPathFormat__的值将保持全局唯一。
+1. ${package} 取值来源为archetype-metadata.xml文件中对于package变量的定义。当无定义时默认本占位符将被创建项目时的groupId代替，你也可以理解成最初讲项目框架时，java包下的__packageInPathFormat__内容,同样__packageInPathFormat__的值将保持全局唯一。
 2. import 的内容是根据实际开发中的import复制过来的，按需使用即可。
 3. 还需要说明的是，在给每一个类编写package时，请仔细思考自己的用法是否正确，项目生成之后，该类和package是否能够恰好的对应上。没有信心的话，多做几次实验即可
 ```
@@ -193,7 +192,9 @@ III 文件`${package}.archetype.apiApiApplication.java`
 
 ### 最后
 
-如果你还是没有搭建成功，我给大家一些排错case，请根据我提供的case严格检查：
+​	要编写出一份完美的脚手架，除了适合自己的项目以外，有非常多的细节需要大家在使用的过程中发现并处理好，相信每个人都能从中有所收获。
+
+​	如果跟着本教程你还是没有搭建成功，我给大家一些排错case，请根据我提供的case严格检查：
 
 1. 检查各个包名是否存在漏字母，错字母，字母顺序不正确的情况，主要检查我在最开始描述框架的时候标了*的那部分
 
@@ -211,7 +212,7 @@ III 文件`${package}.archetype.apiApiApplication.java`
 
 4. 代码更新后是否在脚手架根目录执行过mvn install
 
-我所能想到可能导致你失败的原因都在此处了，如果你在使用过程中还遇到其他原因，非常希望能够给我一些反馈，同时也给其他使用本文档的伙伴使用到你提供的排错case。
+   我所能想到可能导致你失败的原因都在此处了，如果你在使用过程中还遇到其他原因，非常希望能够给我一些反馈，同时也给其他使用本文档的伙伴使用到你提供的排错case。
 
 ### 一些你可能会使用到的命令
 
@@ -243,8 +244,9 @@ mvn archetype:generate                                  \
   -DarchetypeVersion=<archetype-version>                \	//原型的version
   -DgroupId=<my.groupid>                                \	//将创建的项目groupId
   -DartifactId=<my-artifactId>								//将创建的项目artifactId
+  -Dpackage=<my-package>									//将创建的项目package
   
-如果你不想通过idea工具创建脚手架项目，这个命令可以帮助你通过命令的方式创建它
+如果你不想通过idea工具创建脚手架项目(idea工具创建不能指定package)，这个命令可以帮助你通过命令的方式创建它。
 ```
 
 
