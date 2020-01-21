@@ -18,11 +18,11 @@
     	于是我创建了一个maven项目称之为：`z-boot-starter-archetype`，然后删除一些不必要的包，最后的结构如下：
 
     ```
-    |--	z-boot-starter-archetype //脚手架模块名
-    |--	|--	src
-    |--	|--	|--	main
-    |--	|--	|--	|--	resources
-    |--	|--	pom.xml //*请理解成贴在盒子上用于定位的标签
+    |-- z-boot-starter-archetype //脚手架模块名
+    |-- |-- src
+    |-- |-- |--	main
+    |-- |-- |--	|-- resources
+    |-- |-- pom.xml //*请理解成贴在盒子上用于定位的标签
     ```
 
  2. 在盒子中我们能看到除了pom文件仅仅是留下了延伸到resources也就是我们平时编写配置文件的目录，在这个目录下，我们将对脚手架的核心内容进行创建。
