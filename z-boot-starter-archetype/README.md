@@ -149,7 +149,103 @@
 
 ​	但是，实际制作脚手架的过程中，我们往往需要脚手架中有我们想要的包以及一些固定的类、工具等信息。接下来将以`__rootArtifactId__-api`模块为示例针对脚手架的核心内容的创建进行说明。
 
-待续。。。
+​	这里我建议你配合着源码了解，我不会再这里贴上大篇幅代码内容，我会告诉你我正在解释哪个文件，你需要打开源码并打开我说的文件跟着理解。
+
+I 文件：`archetype-resources\pom.xml`
+
+```
+1. ${groupId} 根据脚手架生成项目时要求填写的groupId
+2. ${artifactId}-parent 根据脚手架生成项目时要求填写的artifactId，我后边加了-parent是个人习惯，你也可以不用加，但是一旦加上，就表示你的父pom的最终artifactId是拼接后的结果
+3. ${version} 根据脚手架生成项目时要求填写的version
+4. <modules>标签下对于子模块的描述
+	${rootArtifactId}-api 表示使用脚手架生成项目时要求填写的artifactId拼接上-api表示自己的api子模块。当然，你也可以使用${artifactId}-api代替
+	其他子模块定义同理
+5. 其他的内容没有特别强调，你只需要按照你需要的依赖进行添加即可。
+```
+
+II 文件：`__rootArtifactId__-api\pom.xml`
+
+这里边有重点，请仔细阅读并尝试理解
+
+本pom将作为所有子模块的通用讲解，将不再对其他模块细讲。
+
+```
+1. 关于<parent>标签有必要进行解释，<parent>标签中的<artifactId>请指定为${rootArtifactId}-parent，此处不能使用${artifactId}代替${rootArtifactId}。
+	这里不得不提${rootArtifactId}与${artifactId}的区别，在父pom中，由于没有模块的概念，所以这两个占位符表示的都是同一个值，也就是创建项目时输入的artifaceId值，因此在archetype-resources\pom.xml中这两个占位符你可以相互替换。但是在子模块中，${artifactId}表示的是archetype-metadata.xml文件中每一个model表现下的id属性(也就意味着每个子模块中的相同${artifactId}占位符代表的是不同的值)，但是${rootArtifactId}从始至终表示创建项目时输入的artifaceId值。
+2. 其他的用法就没有特殊说明的
+```
+
+III 文件`${package}.archetype.apiApiApplication.java`
+
+本类将作为启动类，也会对一些特殊的地方进行说明，我相信理解这个类的用法后，其他类、包、文件的创建方式将不在话下
+
+```
+1. ${package} 本占位符将被创建项目时的groupId代替。你也可以理解成最初讲项目框架时，java包下的__packageInPathFormat__内容。同样__packageInPathFormat__的值将保持全局唯一。
+2. import 的内容是根据实际开发中的import复制过来的，按需使用即可。
+3. 还需要说明的是，在给每一个类编写package时，请仔细思考自己的用法是否正确，项目生成之后，该类和package是否能够恰好的对应上。没有信心的话，多做几次实验即可
+```
+
+### 结束
+
+一个脚手架的搭建就在这里结束了，如果跟着本文档你没有成功做出一个属于你的脚手架，请一定不要怀疑自己甚至放弃，肯定是我在某个地方没有描述清楚，因为脚手架本身的技术含量并不高，只是有些坑确实需要踩一踩。
+
+当然，如果你需要帮助，你大可以发起issue或者评论，我将会在读到消息的第一时间给予必要的答复。
+
+### 最后
+
+如果你还是没有搭建成功，我给大家一些排错case，请根据我提供的case严格检查：
+
+1. 检查各个包名是否存在漏字母，错字母，字母顺序不正确的情况，主要检查我在最开始描述框架的时候标了*的那部分
+
+   META-INF 是否写成了MATE-INF
+
+   META-INF 是否写成了META-INFO
+
+   archetype-metadata.xml 是否拼错
+
+   archetype-resources包名是否拼错，漏s了吗
+
+2. archetype-metadata.xml文件中module标签下的dir字段是否在脚手架中都能找到对应的模块名与之对应
+
+3. 各个pom中的标签是否存在重复
+
+4. 代码更新后是否在脚手架根目录执行过mvn install
+
+我所能想到可能导致你失败的原因都在此处了，如果你在使用过程中还遇到其他原因，非常希望能够给我一些反馈，同时也给其他使用本文档的伙伴使用到你提供的排错case。
+
+### 一些你可能会使用到的命令
+
+如果你未使用脚手架插件的话，我想这些命令是你需要的
+
+```
+mvn clean install 打包脚手架项目到本地仓库
+```
+
+```
+mvn archetype:generate 创建脚手架项目，该命令会罗列出所有的包括远程仓库提供的脚手架供你选择，但是数量实在是太多了，一般不使用
+```
+
+```
+mvn archetype:crawl 扫描本地存在的脚手架(archetype)，并更新到位于你定义的本地仓库根目录的archetype-catalog.xml文件中
+```
+
+```
+mvn archetype:generate -DarchetypeCatalog=${xxx} 创建脚手架项目，${xxx}为local时会罗列出所有本地存在的脚手架项目，实际上本命令的数据来源就是上条命令提到的archetype-catalog.xml。所以如果你有脚手架更新，建议先执行下mvn archetype:crawl。
+	${xxx}为local时会罗列出所有本地存在的脚手架项目，即~/.m2/repository/archetypeCatalog文件
+	${xxx}为internal时扫描maven-archetype-plugin内置的archetypeCatalog文件
+	${xxx}为remote时扫描Maven中央仓库的archetypeCatalog文件
+```
+
+```
+mvn archetype:generate                                  \
+  -DarchetypeGroupId=<archetype-groupId>                \	//原型的groupId
+  -DarchetypeArtifactId=<archetype-artifactId>          \	//原型的artifactId
+  -DarchetypeVersion=<archetype-version>                \	//原型的version
+  -DgroupId=<my.groupid>                                \	//将创建的项目groupId
+  -DartifactId=<my-artifactId>								//将创建的项目artifactId
+  
+如果你不想通过idea工具创建脚手架项目，这个命令可以帮助你通过命令的方式创建它
+```
 
 
 
