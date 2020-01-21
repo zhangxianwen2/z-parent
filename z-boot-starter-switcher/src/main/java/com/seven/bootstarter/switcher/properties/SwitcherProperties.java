@@ -1,4 +1,4 @@
-package com.bootstarter.switcher.properties;
+package com.seven.bootstarter.switcher.properties;
 
 import lombok.Data;
 

@@ -1,7 +1,7 @@
-package com.bootstarter.switcher.provider;
+package com.seven.bootstarter.switcher.provider;
 
-import com.bootstarter.switcher.properties.SwitcherMapProperties;
-import com.bootstarter.switcher.properties.SwitcherProperties;
+import com.seven.bootstarter.switcher.properties.SwitcherMapProperties;
+import com.seven.bootstarter.switcher.properties.SwitcherProperties;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;

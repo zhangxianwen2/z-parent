@@ -1,8 +1,8 @@
-package com.bootstarter.switcher.aspect;
+package com.seven.bootstarter.switcher.aspect;
 
-import com.bootstarter.switcher.annotation.Switcher;
-import com.bootstarter.switcher.properties.SwitcherProperties;
-import com.bootstarter.switcher.provider.SwitcherProvider;
+import com.seven.bootstarter.switcher.annotation.Switcher;
+import com.seven.bootstarter.switcher.properties.SwitcherProperties;
+import com.seven.bootstarter.switcher.provider.SwitcherProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Around;

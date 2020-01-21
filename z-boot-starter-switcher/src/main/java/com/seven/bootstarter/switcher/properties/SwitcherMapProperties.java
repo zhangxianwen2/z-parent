@@ -1,4 +1,4 @@
-package com.bootstarter.switcher.properties;
+package com.seven.bootstarter.switcher.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -42,7 +42,6 @@ public class SwitcherMapProperties {
         SwitcherProperties switcherProperties = switcherPropertiesMap.get(key);
         return switcherProperties == null ? new SwitcherProperties() : switcherProperties;
     }
-
 
     /**
      * 移除开关

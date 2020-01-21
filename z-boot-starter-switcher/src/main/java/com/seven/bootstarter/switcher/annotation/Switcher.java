@@ -1,4 +1,4 @@
-package com.bootstarter.switcher.annotation;
+package com.seven.bootstarter.switcher.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

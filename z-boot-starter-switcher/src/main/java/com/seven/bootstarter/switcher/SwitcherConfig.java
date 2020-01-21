@@ -1,6 +1,6 @@
-package com.bootstarter.switcher;
+package com.seven.bootstarter.switcher;
 
-import com.bootstarter.switcher.properties.SwitcherMapProperties;
+import com.seven.bootstarter.switcher.properties.SwitcherMapProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
