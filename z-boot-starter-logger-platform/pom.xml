@@ -9,7 +9,7 @@
     </parent>
 
     <groupId>com.seven</groupId>
-    <artifactId>z-boot-starter-logger-test</artifactId>
+    <artifactId>z-boot-starter-logger-platform</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <modules>

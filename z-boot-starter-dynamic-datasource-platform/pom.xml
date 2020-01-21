@@ -15,11 +15,11 @@
     </parent>
 
     <groupId>com.seven</groupId>
-    <artifactId>z-boot-starter-dynamic-datasource-test</artifactId>
+    <artifactId>z-boot-starter-dynamic-datasource-platform</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>z-boot-starter-dynamic-datasource-test</name>
+    <name>z-boot-starter-dynamic-datasource-platform</name>
     <description>动态数据源使用测试</description>
 
     <properties>

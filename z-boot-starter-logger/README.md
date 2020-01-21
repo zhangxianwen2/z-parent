@@ -43,7 +43,7 @@
 
 2. #### 多线程链路日志
 
-   ​	正常开发过程中，避免不了会使用到多线程，由于`MDC`维护在本地线程中，故当启动子线程时，子线程中将不会存在父线程的`MDC`信息，因此链路断开。解决方案是通过`MDCThreadPoolTaskExecutor`类继承`ThreadPoolTaskExecutor`并重写线程池的`execute`方法，将父线程的`MDC`追加到子线程中，使得子线程可以继续沿用父线程的`MDC`信息从而实现多线程的日志链路。产生的一个副作用就是，在项目中需要开启一个线程池时，必须使用`MDCThreadPoolTaskExecutor.java`创建线程池，否则不会生效。使用方式请在`z-boot-starter-logger-test`中`BizThreadPoolTaskConfig`类查看。
+   ​	正常开发过程中，避免不了会使用到多线程，由于`MDC`维护在本地线程中，故当启动子线程时，子线程中将不会存在父线程的`MDC`信息，因此链路断开。解决方案是通过`MDCThreadPoolTaskExecutor`类继承`ThreadPoolTaskExecutor`并重写线程池的`execute`方法，将父线程的`MDC`追加到子线程中，使得子线程可以继续沿用父线程的`MDC`信息从而实现多线程的日志链路。产生的一个副作用就是，在项目中需要开启一个线程池时，必须使用`MDCThreadPoolTaskExecutor.java`创建线程池，否则不会生效。使用方式请在`z-boot-starter-logger-platform`中`BizThreadPoolTaskConfig`类查看。
 
    ​	当然，你也可以模仿`MDCThreadPoolTaskExecutor`类自己做一个线程池使用。
 
@@ -135,7 +135,7 @@ z.logger.application.extra-sign=myExtraSignInfo
 
 ### 示例代码
 
-​	为了方便开发者快速了解，我提供了[日志方案测试模块](https://github.com/zhangxianwen2/z-parent/tree/master/z-boot-starter-logger-test)进行使用示范，一般而言，你只需要简单模仿即可使用到本jar的功能。
+​	为了方便开发者快速了解，我提供了[日志方案测试模块](https://github.com/zhangxianwen2/z-parent/tree/master/z-boot-starter-logger-platform)进行使用示范，一般而言，你只需要简单模仿即可使用到本jar的功能。
 
 ### TODO
 

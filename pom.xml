@@ -21,7 +21,7 @@
         <module>z-boot-starter-common</module>
         <module>z-boot-starter-archetype</module>
         <module>z-boot-starter-switcher</module>
-        <module>z-boot-starter-switcher-test</module>
+        <module>z-boot-starter-switcher-platform</module>
     </modules>
 
     <properties>

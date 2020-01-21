@@ -99,7 +99,7 @@
 
 ### 使用示例
 
-​	为了方便开发者快速使用，提供了[动态数据源测试模块](https://github.com/zhangxianwen2/z-parent/tree/master/z-boot-starter-dynamic-datasource-test)对本功能进行使用测试，一般而言，开发者只需要进行简单的模仿即可使用到本工具的所有功能。
+​	为了方便开发者快速使用，提供了[动态数据源测试模块](https://github.com/zhangxianwen2/z-parent/tree/master/z-boot-starter-dynamic-datasource-platform)对本功能进行使用测试，一般而言，开发者只需要进行简单的模仿即可使用到本工具的所有功能。
 
 ### TODO
 

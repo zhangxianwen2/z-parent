@@ -2,7 +2,7 @@
 
 ### 介绍
 
-项目地址：[z-boot-starter-dynamic-datasource-test](https://github.com/zhangxianwen2/z-parent/tree/master/z-boot-starter-dynamic-datasource-test)
+项目地址：[z-boot-starter-dynamic-datasource-platform](https://github.com/zhangxianwen2/z-parent/tree/master/z-boot-starter-dynamic-datasource-platform)
 
 简单基础的`springboot`项目结构，尽可能简单的展示如何将[所数据源模块](https://github.com/zhangxianwen2/z-parent/tree/master/z-boot-starter-dynamic-datasource)投入使用。
 
