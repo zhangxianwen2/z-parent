@@ -20,8 +20,8 @@
     ```
     |-- z-boot-starter-archetype //脚手架模块名
     |-- |-- src
-    |-- |-- |--	main
-    |-- |-- |--	|-- resources
+    |-- |-- |-- main
+    |-- |-- |-- |-- resources
     |-- |-- pom.xml //*请理解成贴在盒子上用于定位的标签
     ```
 
@@ -30,28 +30,28 @@
     ​	resources目录下的结构必须固定，包含包名文件名的拼写不得有误，没信心的建议复制粘贴，这会让你直接跳过因为META写成MATE而一天都没有搭建成功的坑。
 
     ```
-    |--	resources	//*固定包名 注意书写
-    |--	|--	archetype-resources	//*固定包名 注意书写
-    |--	|--	|--	__rootArtifactId__-api	//占位符-api模块
-    |--	|--	|--	|--src
-    |--	|--	|--	|--	|--	main
-    |--	|--	|--	|--	|--	|--	java
-    |--	|--	|--	|--	|--	|--	|--	__packageInPathFormat__	//占位符
-    |--	|--	|--	|--	|--	|--	|--	|--	__artifactId__	//占位符
-    |--	|--	|--	|--	|--	|--	|--	|--	|--	controller
-    |--	|--	|--	|--pom.xml	//模块pom
-    |--	|--	|--	__rootArtifactId__-common	//占位符-common模块
-    |--	|--	|--	|--pom.xml	//模块pom
-    |--	|--	|--	__rootArtifactId__-service	//占位符-service模块
-    |--	|--	|--	|--pom.xml	//模块pom
-    |--	|--	|--	__rootArtifactId__-business	//占位符-business模块
-    |--	|--	|--	|--pom.xml	//模块pom
-    |--	|--	|--	__rootArtifactId__-dal	//dal模块
-    |--	|--	|--	|--pom.xml	//模块pom
-    |--	|--	|--	pom.xml	//*请理解成父pom
-    |--	|--	META-INF	//*固定包名 注意书写
-    |--	|--	|--	maven	//*固定包名 注意书写
-    |--	|--	|--	|--	archetype-metadata.xml	//*固定文件名 注意书写 用于定义生成脚手架时，将携带哪些信息
+    |-- resources //*固定包名 注意书写
+    |-- |-- archetype-resources //*固定包名 注意书写
+    |-- |-- |-- __rootArtifactId__-api //占位符-api模块
+    |-- |-- |-- |-- src
+    |-- |-- |-- |-- |-- main
+    |-- |-- |-- |-- |-- |-- java
+    |-- |-- |-- |-- |-- |-- |-- __packageInPathFormat__ //占位符
+    |-- |-- |-- |-- |-- |-- |-- |-- __artifactId__ //占位符
+    |-- |-- |-- |-- |-- |-- |-- |-- |-- controller
+    |-- |-- |-- |-- pom.xml //模块pom
+    |-- |-- |-- __rootArtifactId__-common //占位符-common模块
+    |-- |-- |-- |-- pom.xml //模块pom
+    |-- |-- |-- __rootArtifactId__-service //占位符-service模块
+    |-- |-- |-- |-- pom.xml //模块pom
+    |-- |-- |-- __rootArtifactId__-business //占位符-business模块
+    |-- |-- |-- |-- pom.xml //模块pom
+    |-- |-- |-- __rootArtifactId__-dal //dal模块
+    |-- |-- |-- |-- pom.xml //模块pom
+    |-- |-- |-- pom.xml //*请理解成父pom
+    |-- |-- META-INF //*固定包名 注意书写
+    |-- |-- |-- maven //*固定包名 注意书写
+    |-- |-- |-- |-- archetype-metadata.xml //*固定文件名 注意书写 用于定义生成脚手架时，将携带哪些信息
     
     
     占位符解释：
