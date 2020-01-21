@@ -20,6 +20,7 @@
         <module>z-spring-cloud-api-starter</module>
         <module>z-boot-starter-common</module>
         <module>z-boot-starter-archetype</module>
+        <module>z-boot-starter-switcher</module>
     </modules>
 
     <properties>

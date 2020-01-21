@@ -10,9 +10,19 @@
 6. [z-boot-starter-common](https://github.com/zhangxianwen2/z-parent/tree/master/z-boot-starter-common) 通用模块，用于定义一些所有模块均需要使用的工具等
 7. [z-boot-starter-archetype](https://github.com/zhangxianwen2/z-parent/tree/master/z-boot-starter-archetype) 脚手架模块，除了搭建好的脚手架外，主要目的是以教程的方式教大家怎么搭建脚手架
 
+## TODO
 
+z-boot-starter-switcher	基于apollo实现的注解式开关服务开关
 
+z-boot-starter-oauth	鉴权
 
+z-spring-cloud-eureka	spring-cloud注册中心
+
+z-spring-cloud-server	spring-cloud服务
+
+z-spring-cloud-client	spring-cloud客户端
+
+z-boot-starter-excel	通用Excel文件处理
 
 ## 联系我
 
