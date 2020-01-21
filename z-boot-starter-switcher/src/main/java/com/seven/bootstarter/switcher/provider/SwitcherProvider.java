@@ -3,6 +3,7 @@ package com.seven.bootstarter.switcher.provider;
 import com.seven.bootstarter.switcher.properties.SwitcherMapProperties;
 import com.seven.bootstarter.switcher.properties.SwitcherProperties;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,6 +21,7 @@ import java.time.format.DateTimeFormatter;
 public class SwitcherProvider {
     public static final String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
 
+    @Autowired
     private SwitcherMapProperties switcherPropertiesMap;
 
     public SwitcherProperties getSwitcherProperties(String switcherId) {

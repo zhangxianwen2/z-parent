@@ -20,7 +20,7 @@ public class SwitcherMapProperties {
     public static final String DEFAULT_SWITCHER_PREFIX = "z-switcher";
     private static final String DEFAULT_SWITCHER_SEPARATOR = ".";
 
-    private Map<String, SwitcherProperties> switcherPropertiesMap = new HashMap<>();
+    private Map<String, SwitcherProperties> switcher = new HashMap<>();
 
     /**
      * 新增开关
@@ -29,7 +29,7 @@ public class SwitcherMapProperties {
      * @param properties SwitcherProperties
      */
     public void add(String switcherId, SwitcherProperties properties) {
-        switcherPropertiesMap.put(switcherId, properties);
+        switcher.put(switcherId, properties);
     }
 
     /**
@@ -39,7 +39,7 @@ public class SwitcherMapProperties {
      * @return SwitcherProperties
      */
     public SwitcherProperties get(String key) {
-        SwitcherProperties switcherProperties = switcherPropertiesMap.get(key);
+        SwitcherProperties switcherProperties = switcher.get(key);
         return switcherProperties == null ? new SwitcherProperties() : switcherProperties;
     }
 
@@ -49,6 +49,6 @@ public class SwitcherMapProperties {
      * @param key switcherId
      */
     public void remove(String key) {
-        switcherPropertiesMap.remove(key);
+        switcher.remove(key);
     }
 }
