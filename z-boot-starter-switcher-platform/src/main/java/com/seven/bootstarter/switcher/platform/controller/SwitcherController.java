@@ -22,6 +22,20 @@ public class SwitcherController {
     @GetMapping("/test")
     @Switcher(value = "testSwitcher")
     public void testSwitcher() {
-        log.info("开关未生效");
+        log.info("testSwitcher开关未生效");
+    }
+
+
+    @GetMapping("/test2")
+    @Switcher(value = "testSwitcher2")
+    public void testSwitcher2() {
+        log.info("testSwitcher2开关未生效");
+    }
+
+
+    @GetMapping("/test3")
+    @Switcher(value = "testSwitcher3")
+    public void testSwitcher3() {
+        log.info("testSwitcher3开关未生效");
     }
 }

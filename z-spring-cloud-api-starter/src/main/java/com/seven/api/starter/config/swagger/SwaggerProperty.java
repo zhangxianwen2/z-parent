@@ -14,7 +14,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 @ConfigurationProperties(prefix = SwaggerProperty.SWAGGER_CONFIG_PREFIX)
 public class SwaggerProperty {
-    public static final String SWAGGER_CONFIG_PREFIX = "z.api.start.swagger";
+    public static final String SWAGGER_CONFIG_PREFIX = "z.api.starter.swagger";
 
     /**
      * 是否开启Swagger API文档

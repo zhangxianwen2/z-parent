@@ -18,7 +18,7 @@
 
 z-boot-starter-switcher	基于apollo实现的注解式服务开关
 
-z-boot-starter-oauth	鉴权
+z-boot-starter-oauth	统一的鉴权中心
 
 z-spring-cloud-eureka	spring-cloud注册中心
 
@@ -37,4 +37,3 @@ z-boot-starter-quartz-admin	通用的job管理工具前台
 ## 联系我
 
 我就是我，是你联系不上的烟火
-
