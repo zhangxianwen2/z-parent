@@ -22,6 +22,9 @@ public class SwitcherMonitor {
     @Autowired
     private SwitcherMapProperties switcherPropertiesMap;
 
+    /**
+     * 开关所处的命名空间 默认：application
+     */
     @Value("#{'${z-switch.namespace:application}'.split(',')}")
     private List<String> switchNamespaceList;
 
@@ -41,10 +44,11 @@ public class SwitcherMonitor {
                         String switcherProperties = changedKey.substring(switcherEndIndex + 1);
                         //
                         if (switcherPropertiesMap.get(switcherId) == null) {
-                            switcherPropertiesMap.add(switcherId, setSwitcherProperties(new SwitcherProperties(), switcherProperties, change.getNewValue()));
+                            switcherPropertiesMap.add(switcherId, setSwitcherProperties(new SwitcherProperties(), switcherProperties, change.getNewValue(), switcherId));
                         } else {
-                            switcherPropertiesMap.add(switcherId, setSwitcherProperties(switcherPropertiesMap.get(switcherId), switcherProperties, change.getNewValue()));
+                            switcherPropertiesMap.add(switcherId, setSwitcherProperties(switcherPropertiesMap.get(switcherId), switcherProperties, change.getNewValue(), switcherId));
                         }
+                        // 当开关配置被清空时
                         if (switcherPropertiesMap.get(switcherId).equals(new SwitcherProperties())) {
                             switcherPropertiesMap.remove(switcherId);
                         }
@@ -54,25 +58,21 @@ public class SwitcherMonitor {
         });
     }
 
-    private SwitcherProperties setSwitcherProperties(SwitcherProperties switcherProperties, String properties, String value) {
+    private SwitcherProperties setSwitcherProperties(SwitcherProperties switcherProperties, String properties, String value, String switcherId) {
         if (properties.equals("enable")) {
             try {
-                Boolean enable = Boolean.valueOf(value);
+                boolean enable = Boolean.parseBoolean(value);
                 switcherProperties.setEnable(value == null ? null : enable);
             } catch (Exception e) {
-                log.warn("开关：{}配置错误，应当为Boolean类型，异常信息：", "changedKey", e);
+                log.warn("开关：{}配置错误，应当为Boolean类型，异常信息：", switcherId, e);
             }
         } else if (properties.equals("startTime")) {
             switcherProperties.setStartTime(value);
         } else if (properties.equals("endTime")) {
             switcherProperties.setEndTime(value);
         } else {
-            // do something
+            log.warn("开关：{}配置失败，未定义的配置项：{}", switcherId, properties);
         }
         return switcherProperties;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(Boolean.valueOf(null));
     }
 }
