@@ -28,6 +28,12 @@ z-spring-cloud-client	spring-cloud客户端
 
 z-boot-starter-excel	通用Excel文件处理
 
+`2020-02-09`
+
+z-boot-starter-quartz-service	通用的job管理工具后台
+
+z-boot-starter-quartz-admin	通用的job管理工具前台
+
 ## 联系我
 
 我就是我，是你联系不上的烟火
