@@ -16,7 +16,6 @@ import org.springframework.context.annotation.Import;
  * @Author zhangxianwen
  * 2020/01/21 16:28
  **/
-@Configuration
 @EnableConfigurationProperties(SwitcherMapProperties.class)
 @Import({SwitcherAspect.class, SwitcherProvider.class, SwitcherMonitor.class})
 public class SwitcherConfig {
