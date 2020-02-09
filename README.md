@@ -9,14 +9,14 @@
 5. [z-boot-starter-logger-platform](https://github.com/zhangxianwen2/z-parent/tree/master/z-boot-starter-logger-platform) 日志模块测试方案平台，针对日志模块功能点进行测试
 6. [z-boot-starter-common](https://github.com/zhangxianwen2/z-parent/tree/master/z-boot-starter-common) 通用模块，用于定义一些所有模块均需要使用的工具等
 7. [z-boot-starter-archetype](https://github.com/zhangxianwen2/z-parent/tree/master/z-boot-starter-archetype) 脚手架模块，除了搭建好的脚手架外，主要目的是以教程的方式教大家怎么搭建脚手架
-8. [z-boot-starter-switcher](https://github.com/zhangxianwen2/z-parent/tree/master/z-boot-starter-switcher) 基于apollo实现的注解式服务开关（开发中）
-9. [z-boot-starter-switcher-platform](https://github.com/zhangxianwen2/z-parent/tree/master/z-boot-starter-switcher-platform) 注解式服务开关测试平台（开发中）
+8. [z-boot-starter-switcher](https://github.com/zhangxianwen2/z-parent/tree/master/z-boot-starter-switcher) 基于apollo实现的注解式服务开关
+9. [z-boot-starter-switcher-platform](https://github.com/zhangxianwen2/z-parent/tree/master/z-boot-starter-switcher-platform) 注解式服务开关测试平台
 
 ## TODO
 
 `2020-01-21`
 
-z-boot-starter-switcher	基于apollo实现的注解式服务开关
+z-boot-starter-switcher	基于apollo实现的注解式服务开关   [完成于20200209](https://github.com/zhangxianwen2/z-parent/tree/master/z-boot-starter-switcher)
 
 z-boot-starter-oauth	统一的鉴权中心
 
