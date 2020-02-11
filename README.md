@@ -1,5 +1,7 @@
 # Z-PARENT
 
+> 注：各模块详细介绍请点击链接进入查看
+
 ## 模块介绍
 
 1. [z-boot-starter-dynamic-datasource](https://github.com/zhangxianwen2/z-parent/tree/master/) 动态数据源，继承durid监控，支持数据源动态切换(手动/自动)
