@@ -22,13 +22,9 @@ z-boot-starter-switcher	基于apollo实现的注解式服务开关   [完成于2
 
 z-boot-starter-oauth	统一的鉴权中心
 
-z-spring-cloud-eureka	spring-cloud注册中心
+z-spring-cloud-parent	SpringCloud生态
 
-z-spring-cloud-server	spring-cloud服务
-
-z-spring-cloud-client	spring-cloud客户端
-
-z-boot-starter-excel	通用Excel文件处理
+z-boot-starter-excel	通用Excel文件处理工具
 
 `2020-02-09`
 
