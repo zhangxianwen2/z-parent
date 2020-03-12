@@ -2,6 +2,7 @@ package com.seven.dynamic.datasource.api.controller;
 
 import com.seven.dynamic.datasource.dal.seven1.dataobject.User;
 import com.seven.dynamic.datasource.dal.seven2.dataobject.Product;
+import com.seven.dynamic.datasource.service.AService;
 import com.seven.dynamic.datasource.service.DataTestService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,6 +35,10 @@ public class NoSwitchDatasourceAnnotationTest {
     @Qualifier("productService")
     private DataTestService<Product> productService;
 
+    @Autowired
+    // @Qualifier("wqewqewqe")
+    private AService<Product> aService;
+
 
     @ApiOperation(value = "user插入", notes = "将自动选择seven1-user")
     @GetMapping("/insertUser")
@@ -51,5 +56,11 @@ public class NoSwitchDatasourceAnnotationTest {
         product.setName("book");
         product.setPrice(BigDecimal.valueOf(89));
         productService.insert(product);
+    }
+
+    @ApiOperation(value = "XXXXXXXXXXXXXXXXXX", notes = "将自动选择seven2-product")
+    @GetMapping("/xx")
+    public void xx() {
+        aService.selectBatch();
     }
 }

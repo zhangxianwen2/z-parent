@@ -22,7 +22,7 @@ public class DynamicDataSourceContextHolder {
      */
     public static void setDataSourceKey(String dataSourcesName) {
         LOOKUP_KEY_HOLDER.set(dataSourcesName);
-        log.info("Datasource {} set into thread!", dataSourcesName);
+        log.debug("Datasource {} set into thread!", dataSourcesName);
     }
 
     /**
@@ -39,6 +39,6 @@ public class DynamicDataSourceContextHolder {
      */
     public static void clearDataSource() {
         LOOKUP_KEY_HOLDER.remove();
-        log.info("Datasource pool is cleared!");
+        log.debug("Datasource pool is cleared!");
     }
 }

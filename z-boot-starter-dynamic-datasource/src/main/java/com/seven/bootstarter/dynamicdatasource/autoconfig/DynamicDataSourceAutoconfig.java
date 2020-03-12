@@ -45,7 +45,7 @@ public class DynamicDataSourceAutoconfig {
     }
 
     @Bean
-    public DynamicDataSourceInterceptor dynamicDataSourceInterceptor() {
-        return new DynamicDataSourceInterceptor();
+    public DynamicDataSourceInterceptor dynamicDataSourceInterceptor(DynamicDataSourceProperties properties) {
+        return new DynamicDataSourceInterceptor(new DefaultDynamicDataSourceProvider(properties));
     }
 }

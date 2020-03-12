@@ -40,7 +40,7 @@ public class DynamicRoutingDataSource extends AbstractRoutingDataSource implemen
         if (CollectionUtils.isEmpty(allDataSource)) {
             throw new IllegalArgumentException("Don't find any data source config!");
         }
-        log.info("{} data sources were found", allDataSource.size());
+        log.debug("{} data sources were found", allDataSource.size());
         allDataSource.forEach((key, value) -> {
             if (defaultDataSource == null) {
                 defaultDataSource = value;
@@ -62,7 +62,7 @@ public class DynamicRoutingDataSource extends AbstractRoutingDataSource implemen
         if (dataSource == null) {
             throw new IllegalArgumentException("DataSource name cant't be null!");
         }
-        log.info("DataSource:{} is used!", dataSourceName);
+        log.debug("DataSource:{} is used!", dataSourceName);
         return dataSource;
     }
 }
