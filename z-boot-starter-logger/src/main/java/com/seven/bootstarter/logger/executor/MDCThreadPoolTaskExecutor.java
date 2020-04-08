@@ -1,7 +1,7 @@
 package com.seven.bootstarter.logger.executor;
 
+import com.seven.bootstarter.logger.filter.ZMDC;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.MDC;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.Map;
@@ -17,9 +17,9 @@ public class MDCThreadPoolTaskExecutor extends ThreadPoolTaskExecutor {
 
     @Override
     public void execute(Runnable runnable) {
-        log.debug("MDC将被传递到子线程:{}", MDC.getCopyOfContextMap());
+        log.debug("MDC将被传递到子线程:{}", ZMDC.getCopyOfContextMap());
         // 获取父线程MDC中的内容必须在run方法之前，否则等异步线程执行的时候有可能MDC里面的值已经被清空了，这个时候就会返回null
-        Map<String, String> context = MDC.getCopyOfContextMap();
+        Map<String, String> context = ZMDC.getCopyOfContextMap();
         super.execute(() -> run(runnable, context));
     }
 
@@ -31,13 +31,13 @@ public class MDCThreadPoolTaskExecutor extends ThreadPoolTaskExecutor {
      */
     private void run(Runnable runnable, Map<String, String> context) {
         if (context != null) {
-            MDC.setContextMap(context);
+            ZMDC.setContextMap(context);
         }
         try {
             runnable.run();
         } finally {
             // 清空MDC内容
-            MDC.clear();
+            ZMDC.clear();
         }
     }
 }

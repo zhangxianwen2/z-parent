@@ -2,7 +2,6 @@ package com.seven.bootstarter.logger.filter;
 
 import com.seven.bootstarter.common.utils.UUIDUtil;
 import com.seven.bootstarter.logger.provider.ApplicationProvider;
-import org.slf4j.MDC;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.Filter;
@@ -38,28 +37,28 @@ public class MDCFilter implements Filter {
 
     private void modifyMdc(ModifyHttpServletRequestWrapper requestWrapper) {
         String tranceHostName = ApplicationProvider.getHostName();
-        MDC.put(MDCFilter.HEADER_KEY_HOST_NAME, tranceHostName);
+        ZMDC.put(MDCFilter.HEADER_KEY_HOST_NAME, tranceHostName);
 
         String tranceHostAddress = ApplicationProvider.getHostAddress();
-        MDC.put(MDCFilter.HEADER_KEY_HOST_ADDRESS, tranceHostAddress);
+        ZMDC.put(MDCFilter.HEADER_KEY_HOST_ADDRESS, tranceHostAddress);
         requestWrapper.putCustomHeaders(MDCFilter.HEADER_KEY_HOST_ADDRESS, tranceHostAddress);
 
         String tranceAppId = ApplicationProvider.getAppId();
-        MDC.put(MDCFilter.HEADER_KEY_APP_ID, tranceAppId);
+        ZMDC.put(MDCFilter.HEADER_KEY_APP_ID, tranceAppId);
 
         String tranceAppName = ApplicationProvider.getAppName();
-        MDC.put(MDCFilter.HEADER_KEY_APP_NAME, tranceAppName);
+        ZMDC.put(MDCFilter.HEADER_KEY_APP_NAME, tranceAppName);
         requestWrapper.putCustomHeaders(MDCFilter.HEADER_KEY_APP_NAME, tranceAppName);
 
         String tranceExtraSign = ApplicationProvider.getExtraSign();
-        MDC.put(MDCFilter.HEADER_KEY_EXTRA_SIGN, tranceExtraSign);
+        ZMDC.put(MDCFilter.HEADER_KEY_EXTRA_SIGN, tranceExtraSign);
 
         //
         String traceId = requestWrapper.getHeader(MDCFilter.HEADER_KEY_TRACE_ID);
         if (StringUtils.isEmpty(traceId)) {
             traceId = UUIDUtil.getShortUUID();
         }
-        MDC.put(MDCFilter.HEADER_KEY_TRACE_ID, traceId);
+        ZMDC.put(MDCFilter.HEADER_KEY_TRACE_ID, traceId);
         requestWrapper.putCustomHeaders(MDCFilter.HEADER_KEY_TRACE_ID, traceId);
 
         String seriesIp = requestWrapper.getHeader(MDCFilter.HEADER_KEY_SERIES_IP);
@@ -68,7 +67,7 @@ public class MDCFilter implements Filter {
         } else {
             seriesIp = tranceHostAddress + "(" + tranceAppName + ")";
         }
-        MDC.put(MDCFilter.HEADER_KEY_SERIES_IP, seriesIp);
+        ZMDC.put(MDCFilter.HEADER_KEY_SERIES_IP, seriesIp);
         requestWrapper.putCustomHeaders(MDCFilter.HEADER_KEY_SERIES_IP, seriesIp);
     }
 }

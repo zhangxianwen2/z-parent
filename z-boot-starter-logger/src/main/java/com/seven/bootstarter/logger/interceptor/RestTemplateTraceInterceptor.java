@@ -1,6 +1,6 @@
 package com.seven.bootstarter.logger.interceptor;
 
-import org.slf4j.MDC;
+import com.seven.bootstarter.logger.filter.ZMDC;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
@@ -25,7 +25,7 @@ public class RestTemplateTraceInterceptor extends BaseTraceInterceptor implement
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
         HttpHeaders headers = request.getHeaders();
         for (String needTraceHeader : needTraceHeaders) {
-            headers.add(needTraceHeader, MDC.get(needTraceHeader));
+            headers.add(needTraceHeader, ZMDC.get(needTraceHeader));
         }
         return execution.execute(request, body);
     }

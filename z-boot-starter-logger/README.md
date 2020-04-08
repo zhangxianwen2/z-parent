@@ -14,8 +14,9 @@
 - 多线程链路日志
 - `RestTempate`请求链路日志
 - 日志脱敏，被脱敏的信息包括：电话、身份证号、银行卡号、密码
+- 日志超长截断
 
-### 使用方法
+### 入门
 
 1. 添加依赖
 
@@ -27,7 +28,9 @@
    </dependency>
    ```
 
-2. 在你的日志里边添加一些敏感信息试试吧。
+2. 将你自己的logback-spring.xml配置文件删除。
+
+3. 在你的日志里边添加一些敏感信息试试吧。
 
 ### 功能描述
 
@@ -68,29 +71,57 @@
 
 4. #### 日志脱敏
 
+   默认关闭，使用以下配置开启：
+
+   ```
+z.boot.starter.logger.sensitivity-valid = true
+   ```
+
    ​	日志脱敏的任何一个企业必须要做到的事情，依赖本jar包之后，这一功能将被实现，我目前对正常的日志信息分为了两类。
 
     1. message属于`Json`格式
 
        方案：`message`解析为`JSONObject`或者`JSONArray`，根据键值对Key值和Value值双重校验确定目标字段是否属于敏感信息，并根据命中的敏感信息分类进行加密。
-
+   
     2. message属于普通字符串，没有规律
-
+   
        方案：根据标点符号以及空格对整条message进行分隔得到若干个单词，对每个单词进行正则匹配判断是否属于敏感信息并进行加密处理。此处涉及的脱敏逻辑略微复杂，我尽可能地描述清楚我是怎么做的，也希望你能尽量理解：
 
        ```
-       - I 设计两个变量，originStr和targetStr，其中originStr表示用于处理的字符串，targetStr表示最终将生成的字符串
+    - I 设计两个变量，originStr和targetStr，其中originStr表示用于处理的字符串，targetStr表示最终将生成的字符串
        - II 根据标点符号拆分成若干个单词，targetStr追加被拆分后的split[0]也就是第一个单词调用脱敏方法得到的字符串，脱敏方法中将会对该单词进行判断是否属于敏感信息并进行处理，同时originStr中裁剪掉该单词
        - III 注意，在上一条逻辑中，如果不做其他处理，结果将是缺少原符号仅仅是被每个单词拼接得到的字符串，为了使标点符号能够也被追加，当我发现split[0]是空字符串则可以判定该标点前没有内容，此时则需要把这个标点符号追加到targetStr并在originStr中删除它然后继续重复II,III步骤。
        ```
-
-       
-
+   
     3. ~~(1和2的混合模式)暂未实现~~
+   
+   值得注意的是，日志脱敏时，会自动识别电话号码、身份证号码、银行卡号并对其进行脱敏，该功能通过正则匹配识别，在组件中，默认的正则配置如下，你也可以在application配置中自定义规则覆盖默认规则：
+   
+   ```
+      # 默认的电话号码匹配正则
+      z.boot.starter.logger.mobile-regex = ^[1][3589]\d{9}}
+      # 默认的身份证号码匹配正则
+      z.boot.starter.logger.idCard-regex = (^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)
+      # 默认的银行卡号匹配正则
+      z.boot.starter.logger.bankCard-regex = ^[34569]\d{15,18}
+   ```
+   
+   
+   
+5. #### 日志截断
+
+   默认关闭，使用以下配置开启：
+
+   ```
+    # 开启日志超长截取
+    z.boot.starter.logger.max-length-valid = true
+    # 日志长度超过2048时，多余的部分被截取
+    z.boot.starter.logger.max-length = 2048
+   ```
 
 ### 输出格式
 
-​	本jar包提供了默认的`logback-spring.xml`用于日志打印，该`xml`中，规定了日志必须输出到控制台和文件中，文件路径以及文件名为：`logs/${appName}/${appName}.log`，值得注意的是，其中的`appName`默认值为`undefinedAppName`，需要你在配置文件中配置`z.logger.application.name=yourApplicationName`方可使用。若你不想使用本默认方案或者本默认方案不适合你，你只需要在自己的项目中也写一个`logback-spring.xml`即可覆盖jar包中的配置。
+​	本jar包提供了默认的`logback-spring.xml`用于日志打印，该`xml`中，规定了日志必须输出到控制台和文件中，文件路径以及文件名为：`logs/${appName}/${appName}.log`，值得注意的是，其中的`appName`默认值为`undefinedAppName`，需要你在配置文件中配置`z-logger.application.name=yourApplicationName`方可使用。若你不想使用本默认方案或者本默认方案不适合你，你只需要在自己的项目中也写一个`logback-spring.xml`即可覆盖jar包中的配置。
 
 ​	值得注意的是，这里只是定义了输出格式，实际使用过程中并没有限制你的选择，你完全可以在打印控制台时使用`RabbitMQ`的输出方案。
 
@@ -126,12 +157,48 @@
 
 ```
 # appId 和appName类似用于定位是哪一个服务，但是appId更加强调所有系统唯一
-z.logger.application.id=myAppId
+z-logger.application.id=myAppId
 # 附加信息
-z.logger.application.extra-sign=myExtraSignInfo
+z-logger.application.extra-sign=myExtraSignInfo
 ```
 
-​	需要说明的是`tranceExtraSign`字段属于附加字段，在其被赋值时，将会与其他信息一同打印出来，作用是当其他含义固定的字段不足以表示某个想要打印在日志中的字段时使用。更多请见`MDCFilter.java`。
+需要说明的是`tranceExtraSign`字段属于附加字段，在其被赋值时，将会与其他信息一同打印出来，作用是当其他含义固定的字段不足以表示某个想要打印在日志中的字段时使用。更多请见`MDCFilter.java`。
+
+配置日志前缀
+
+```
+   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+       <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+           <layout class="com.hyxf.channel.common.module.logger.layout.ConsoleLayOut">
+               <prefix>MyPrefix</prefix>
+           </layout>
+       </encoder>
+   </appender>
+```
+
+配置日志不打印线程名（默认打印）
+
+```
+   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+       <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+           <layout class="com.hyxf.channel.common.module.logger.layout.ConsoleLayOut">
+               <showThreadName>false</showThreadName>
+           </layout>
+       </encoder>
+   </appender>
+```
+
+配置日志不打印IP链路（默认打印）
+
+  ```
+ <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+       <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+           <layout class="com.hyxf.channel.common.module.logger.layout.ConsoleLayOut">
+               <showSeriesIp>false</showSeriesIp>
+           </layout>
+       </encoder>
+ </appender>
+  ```
 
 ### 示例代码
 

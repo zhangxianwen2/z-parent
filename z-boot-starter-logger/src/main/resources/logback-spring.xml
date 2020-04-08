@@ -1,6 +1,6 @@
 <configuration>
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
-    <springProperty scope="context" name="appName" source="z.logger.application.name"
+    <springProperty scope="context" name="appName" source="z-logger.application.name"
                     defaultValue="undefinedAppName"/>
 
     <!-- rabbitmq -->

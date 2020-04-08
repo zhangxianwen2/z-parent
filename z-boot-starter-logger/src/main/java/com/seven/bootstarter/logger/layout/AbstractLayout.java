@@ -6,6 +6,7 @@ import ch.qos.logback.classic.spi.ThrowableProxy;
 import ch.qos.logback.core.LayoutBase;
 import com.alibaba.fastjson.JSONObject;
 import com.seven.bootstarter.logger.filter.MDCFilter;
+import com.seven.bootstarter.logger.filter.ZMDC;
 import com.seven.bootstarter.logger.provider.ApplicationProvider;
 import com.seven.bootstarter.logger.provider.SensitivityFieldProvider;
 import com.seven.bootstarter.logger.utils.BreakSensitivityUtil;
@@ -48,10 +49,10 @@ public abstract class AbstractLayout extends LayoutBase<ILoggingEvent> {
     abstract String buildLayout(ILoggingEvent iLoggingEvent);
 
 
-    protected void writeMDC(JSONObject json, ILoggingEvent event) {
-        Map<String, String> mdcPropertyMap = event.getMDCPropertyMap();
-        if (mdcPropertyMap != null && mdcPropertyMap.size() > 0) {
-            json.putAll(mdcPropertyMap);
+    protected void writeMDC(JSONObject json) {
+        Map<String, String> zMdcMap = ZMDC.getCopyOfContextMap();
+        if (zMdcMap != null && zMdcMap.size() > 0) {
+            json.putAll(zMdcMap);
         }
     }
 
@@ -67,20 +68,26 @@ public abstract class AbstractLayout extends LayoutBase<ILoggingEvent> {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(event.getTimeStamp()),
                 ZoneId.systemDefault());
         json.put("time", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS").format(localDateTime));
-        // 超长截取
         String message = event.getFormattedMessage();
-        if (!StringUtils.isEmpty(message)) {
-            int maxLoggerLength = 2048;
-            try {
-                maxLoggerLength = Integer.parseInt(SensitivityFieldProvider.getMaxLoggerLength().trim());
-            } catch (NumberFormatException e) {
-                // do nothing
-                log.warn("field 'z.boot.starter.logger.max-length' in configuration properties maybe is illogical!");
+        // 超长截取
+        if (Boolean.parseBoolean(SensitivityFieldProvider.getMaxLoggerLengthValid())) {
+            if (!StringUtils.isEmpty(message)) {
+                int maxLoggerLength = 2048;
+                try {
+                    maxLoggerLength = Integer.parseInt(SensitivityFieldProvider.getMaxLoggerLength().trim());
+                } catch (NumberFormatException e) {
+                    // do nothing
+                    log.warn("field 'z.boot.starter.logger.max-length' in configuration properties maybe is illogical!");
+                }
+                message = message.length() <= maxLoggerLength ? message : message.substring(0, maxLoggerLength) + "...超长省略，总长度为: " + message.length();
             }
-            message = message.length() <= maxLoggerLength ? message : message.substring(0, maxLoggerLength) + "...超长省略，总长度为: " + message.length();
         }
-        // 脱敏
-        json.put("message", BreakSensitivityUtil.breakSensitivity(message));
+        if (Boolean.parseBoolean(SensitivityFieldProvider.getSensitivityValid())) {
+            // 脱敏
+            json.put("message", BreakSensitivityUtil.breakSensitivity(message));
+        } else {
+            json.put("message", message);
+        }
     }
 
     protected void writeThrowable(JSONObject json, ILoggingEvent event) {

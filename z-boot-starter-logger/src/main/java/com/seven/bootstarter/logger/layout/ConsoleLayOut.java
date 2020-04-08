@@ -25,7 +25,7 @@ public class ConsoleLayOut extends AbstractLayout {
     @Override
     String buildLayout(ILoggingEvent iLoggingEvent) {
         JSONObject json = new JSONObject();
-        writeMDC(json, iLoggingEvent);
+        writeMDC(json);
         writeBasic(json, iLoggingEvent);
         writeThrowable(json, iLoggingEvent);
         //

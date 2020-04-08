@@ -39,9 +39,9 @@ public class ApplicationProvider {
     private static String extraSign;
 
 
-    public ApplicationProvider(@Value("${z.logger.application.name:UNDEFINED}") String applicationName,
-                               @Value("${z.logger.application.id:UNDEFINED}") String appId,
-                               @Value("${z.logger.application.extra-sign:}") String extraSign) {
+    public ApplicationProvider(@Value("${z-logger.application.name:UNDEFINED}") String applicationName,
+                               @Value("${z-logger.application.id:UNDEFINED}") String appId,
+                               @Value("${z-logger.application.extra-sign:}") String extraSign) {
         try {
             InetAddress inetAddress = InetAddress.getLocalHost();
             ApplicationProvider.hostAddress = inetAddress.getHostAddress();
