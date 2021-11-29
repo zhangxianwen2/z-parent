@@ -65,6 +65,9 @@ public class ConsoleLayOut extends AbstractLayout {
         if (json.get("throwable") != null) {
             out.append("\n");
             out.append(json.getJSONObject("throwable").get("className"));
+            out.append("-");
+            out.append(json.getJSONObject("throwable").get("message"));
+//            out.append(json.getJSONObject("throwable").get("cause"));
         }
         if (json.get("stackTrace") != null) {
             for (Object stackTrace : json.getJSONArray("stackTrace")) {
@@ -79,7 +82,19 @@ public class ConsoleLayOut extends AbstractLayout {
                 out.append(((JSONObject) stackTrace).get("line"));
                 out.append(")");
             }
-
+        } else if (json.get("throwable") != null && json.getJSONObject("throwable").get("cause") != null && json.getJSONObject("throwable").getJSONObject("cause").get("stackTrace") != null) {
+            for (Object stackTrace : json.getJSONObject("throwable").getJSONObject("cause").getJSONArray("stackTrace")) {
+                out.append("\n");
+                out.append("\tat ");
+                out.append(((JSONObject) stackTrace).get("declaringClass"));
+                out.append(".");
+                out.append(((JSONObject) stackTrace).get("methodName"));
+                out.append("(");
+                out.append(((JSONObject) stackTrace).get("fileName"));
+                out.append(":");
+                out.append(((JSONObject) stackTrace).get("lineNumber"));
+                out.append(")");
+            }
         }
         out.append("\n");
         return out.toString();

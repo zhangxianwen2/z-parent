@@ -70,7 +70,7 @@
 
     <!-- 日志打印到文件 -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/${appName}/${appName}.log</file>
+        <file>logs/${appName}/info.log</file>
         <layout class="com.seven.bootstarter.logger.layout.FileLayOut"/>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!--按天轮转 -->
