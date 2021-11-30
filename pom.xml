@@ -22,6 +22,14 @@
         <module>z-boot-starter-archetype</module>
         <module>z-boot-starter-switcher</module>
         <module>z-boot-starter-switcher-platform</module>
+        <module>z-ddd</module>
+        <module>z-ddd-case</module>
+        <module>z-ddd-robot</module>
+        <module>z-cglib</module>
+        <module>z-netty</module>
+        <module>z-leecode</module>
+        <module>z-arithmetic</module>
+        <module>z-boot-starter-archetype-ddd</module>
     </modules>
 
     <properties>

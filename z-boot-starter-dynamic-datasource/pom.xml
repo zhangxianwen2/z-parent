@@ -14,6 +14,7 @@
     <groupId>com.seven</groupId>
     <version>1.0</version>
     <artifactId>z-boot-starter-dynamic-datasource</artifactId>
+    <version>1.0</version>
 
     <properties>
     </properties>

@@ -86,7 +86,7 @@ public class ConsoleLayOut extends AbstractLayout {
             for (Object stackTrace : json.getJSONObject("throwable").getJSONObject("cause").getJSONArray("stackTrace")) {
                 out.append("\n");
                 out.append("\tat ");
-                out.append(((JSONObject) stackTrace).get("declaringClass"));
+                out.append(((JSONObject) stackTrace).get("className"));
                 out.append(".");
                 out.append(((JSONObject) stackTrace).get("methodName"));
                 out.append("(");
