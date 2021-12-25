@@ -80,7 +80,7 @@
             <totalSizeCap>1GB</totalSizeCap>
         </rollingPolicy>
     </appender>
-g
+
 
     <!-- 打印控制 -->
     <root level="INFO">
