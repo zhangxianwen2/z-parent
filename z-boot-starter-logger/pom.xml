@@ -6,7 +6,7 @@
 
     <groupId>com.seven</groupId>
     <artifactId>z-boot-starter-logger</artifactId>
-    <version>1.2</version>
+    <version>1.3</version>
     <properties>
         <janino.version>3.0.15</janino.version>
     </properties>
