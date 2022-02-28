@@ -35,9 +35,12 @@ public class MDCThreadPoolTaskExecutor extends ThreadPoolTaskExecutor {
         }
         try {
             runnable.run();
+        } catch (Exception e) {
+            log.error("子线程执行异常：", e);
         } finally {
             // 清空MDC内容
             ZMDC.clear();
         }
     }
+
 }
