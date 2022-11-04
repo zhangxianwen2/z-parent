@@ -38,6 +38,12 @@ public class ConsoleLayOut extends AbstractLayout {
         }
         out.append(json.get("level"));
         out.append(TAB);
+        if (!StringUtils.isEmpty(json.get(MDCFilter.HEADER_VISITOR))) {
+            out.append("[");
+            out.append(json.get(MDCFilter.HEADER_VISITOR));
+            out.append("]");
+            out.append(TAB);
+        }
         if (!StringUtils.isEmpty(json.get(MDCFilter.HEADER_KEY_TRACE_ID))) {
             out.append("[");
             out.append(json.get(MDCFilter.HEADER_KEY_TRACE_ID));

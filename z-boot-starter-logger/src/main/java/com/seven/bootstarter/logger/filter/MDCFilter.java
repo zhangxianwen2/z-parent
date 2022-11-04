@@ -24,6 +24,8 @@ public class MDCFilter implements Filter {
 
     public static final String HEADER_KEY_SERIES_IP = "tranceSeriesIp";
 
+    public static final String HEADER_VISITOR = "visitor";
+
     public static final String HEADER_KEY_HOST_NAME = "tranceHostName";
 
     public static final String HEADER_KEY_HOST_ADDRESS = "tranceHostAddress";

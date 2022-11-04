@@ -78,7 +78,7 @@ public class LRUCache {
         return cache.size();
     }
 
-    class Node {
+    class whetherBlackTargetsNode {
 
         int key;
         int value;
