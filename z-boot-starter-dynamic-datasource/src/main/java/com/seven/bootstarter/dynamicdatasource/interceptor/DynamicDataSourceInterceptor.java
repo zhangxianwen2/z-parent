@@ -31,14 +31,9 @@ import java.util.Map;
  * 2020/01/09 17:02
  **/
 @Slf4j
-@Intercepts(
-        {
-                @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
-                @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
-                @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class})
-        }
-)
+@Intercepts({@Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}), @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}), @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class})})
 public class DynamicDataSourceInterceptor implements Interceptor {
+
     /**
      * 动态数据源配置
      */
@@ -65,15 +60,13 @@ public class DynamicDataSourceInterceptor implements Interceptor {
                     String[] split = resource.split("/");
                     // 目录结构猜测为：*/datasourceName/mapper/*Mapper.java
                     String datasource = split[split.length - 3];
-                    log.warn("Choose {} as your datasource is the best guess,if the guess is wrong,check your project struct or manually specify data source", datasource);
+                    log.warn("Choose {} as your datasource is the best guess,if the guess is wrong,check your project struct or manually specify data source",
+                             datasource);
                     DynamicDataSourceContextHolder.setDataSourceKey(datasource);
                 }
             }
         }
-        try {
-            return invocation.proceed();
-        } finally {
-            DynamicDataSourceContextHolder.clearDataSource();
-        }
+        return invocation.proceed();
     }
+
 }

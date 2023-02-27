@@ -9,8 +9,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @ConfigurationProperties("spring.datasource.dynamic.druid")
 public class DruidStatProperties {
+
     private String[] aopPatterns;
+
     private StatViewServlet statViewServlet = new StatViewServlet();
+
     private WebStatFilter webStatFilter = new WebStatFilter();
 
     public String[] getAopPatterns() {
@@ -38,15 +41,22 @@ public class DruidStatProperties {
     }
 
     public static class StatViewServlet {
+
         /**
          * Enable StatViewServlet.
          */
         private boolean enabled = true;
+
         private String urlPattern;
+
         private String allow;
+
         private String deny;
+
         private String loginUsername;
+
         private String loginPassword;
+
         private String resetEnable;
 
         public boolean isEnabled() {
@@ -104,19 +114,28 @@ public class DruidStatProperties {
         public void setResetEnable(String resetEnable) {
             this.resetEnable = resetEnable;
         }
+
     }
 
     public static class WebStatFilter {
+
         /**
          * Enable WebStatFilter.
          */
         private boolean enabled = true;
+
         private String urlPattern;
+
         private String exclusions;
+
         private String sessionStatMaxCount;
+
         private String sessionStatEnable;
+
         private String principalSessionName;
+
         private String principalCookieName;
+
         private String profileEnable;
 
         public boolean isEnabled() {
@@ -182,5 +201,7 @@ public class DruidStatProperties {
         public void setProfileEnable(String profileEnable) {
             this.profileEnable = profileEnable;
         }
+
     }
+
 }

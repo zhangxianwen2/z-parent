@@ -9,8 +9,6 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * Code from com.alibaba:druid-spring-boot-starter:1.1.10
- *
- * @author lihengming [89921218@qq.com]
  */
 @ConditionalOnWebApplication
 @ConditionalOnProperty(name = "spring.datasource.dynamic.druid.stat-view-servlet.enabled", havingValue = "true")
@@ -39,4 +37,5 @@ public class DruidStatViewServletConfiguration {
         }
         return registrationBean;
     }
+
 }

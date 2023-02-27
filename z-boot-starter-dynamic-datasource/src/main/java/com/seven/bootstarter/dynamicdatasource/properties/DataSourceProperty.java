@@ -3,6 +3,8 @@ package com.seven.bootstarter.dynamicdatasource.properties;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.util.Properties;
+
 /**
  * <p>
  *
@@ -14,10 +16,12 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class DataSourceProperty {
+
     /**
      * 数据源名称，如果需要添加分组以-分割组名和数据源名。如slave-1
      */
     private String dataSourceName;
+
     /**
      * JDBC driver
      */
@@ -37,4 +41,36 @@ public class DataSourceProperty {
      * JDBC 密码
      */
     private String password;
+
+    /**
+     *
+     */
+    private Integer initialSize;
+
+    private Integer minIdle;
+
+    private Integer maxActive;
+
+    private Integer maxWait;
+
+    private Integer timeBetweenEvictionRunsMillis;
+
+    private Integer minEvictableIdleTimeMillis;
+
+    private String validationQuery;
+
+    private Boolean testWhileIdle;
+
+    private Boolean testOnBorrow;
+
+    private Boolean testOnReturn;
+
+    private Boolean poolPreparedStatements;
+
+    private Integer maxPoolPreparedStatementPerConnectionSize;
+
+    private String filters;
+
+    private Properties connectionProperties;
+
 }

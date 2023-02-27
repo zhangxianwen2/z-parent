@@ -12,14 +12,19 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.seven</groupId>
-    <version>1.0</version>
+    <version>1.2-SNAPSHOT</version>
     <artifactId>z-boot-starter-dynamic-datasource</artifactId>
-    <version>1.0</version>
 
     <properties>
     </properties>
 
-    <dependencies>
+    <dependencies>        <!--c3p0连接池-->
+        <dependency>
+            <groupId>com.mchange</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.5.2</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
@@ -38,7 +43,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.1.21</version>
+            <version>1.2.15</version>
         </dependency>
 
         <!-- MybatisPlus -->

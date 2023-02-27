@@ -39,7 +39,8 @@ public class DruidWebStatFilterConfiguration {
         WebStatFilter filter = new WebStatFilter();
         registrationBean.setFilter(filter);
         registrationBean.addUrlPatterns(config.getUrlPattern() != null ? config.getUrlPattern() : "/*");
-        registrationBean.addInitParameter("exclusions", config.getExclusions() != null ? config.getExclusions() : "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
+        registrationBean.addInitParameter("exclusions",
+                                          config.getExclusions() != null ? config.getExclusions() : "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
         if (config.getSessionStatEnable() != null) {
             registrationBean.addInitParameter("sessionStatEnable", config.getSessionStatEnable());
         }
@@ -57,4 +58,5 @@ public class DruidWebStatFilterConfiguration {
         }
         return registrationBean;
     }
+
 }
