@@ -26,7 +26,7 @@ public class ZMDC {
             mdcAdapter = new LogbackMDCAdapter();
         } catch (Exception e) {
             // we should never get here
-            Util.report("HyxfMDC binding unsuccessful.", e);
+            Util.report("ZMDC binding unsuccessful.", e);
         }
     }
 
