@@ -57,6 +57,8 @@ public class DataSourceProperty {
 
     private Integer minEvictableIdleTimeMillis;
 
+    private Integer maxEvictableIdleTimeMillis;
+
     private String validationQuery;
 
     private Boolean testWhileIdle;

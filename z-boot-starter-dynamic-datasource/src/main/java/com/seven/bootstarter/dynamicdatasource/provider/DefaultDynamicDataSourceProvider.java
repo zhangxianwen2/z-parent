@@ -71,6 +71,9 @@ public class DefaultDynamicDataSourceProvider implements DynamicDataSourceProvid
         if (dataSourceProperty.getMinEvictableIdleTimeMillis() != null) {
             dataSource.setMinEvictableIdleTimeMillis(dataSourceProperty.getMinEvictableIdleTimeMillis());
         }
+        if (dataSourceProperty.getMaxEvictableIdleTimeMillis() != null) {
+            dataSource.setMaxEvictableIdleTimeMillis(dataSourceProperty.getMaxEvictableIdleTimeMillis());
+        }
         if (dataSourceProperty.getValidationQuery() != null) {
             dataSource.setValidationQuery(dataSourceProperty.getValidationQuery());
         }
